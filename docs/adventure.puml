@@ -15,7 +15,7 @@ class Lanza
 class Sala
 class Puerta 
 class Laberinto
-class Parded
+class Pared
 
 class Enemigo
 class Murcielago
