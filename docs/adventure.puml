@@ -1,23 +1,126 @@
 @startuml Adventure
 
-class Juego{
-    Jugar();
+class Juego
+{
+    Jugar()
     -tiempoJugado
 }
 class Jugador
+{
+    Controlar()
+    -puntaje
+    -intento
+}
 class Personaje 
+{
+    Agarrar()
+    Soltar()
+    Caminar()
+    Luchar()
+    Acceder()
+    -color
+    -vida
+    -velocidad
+    -vision
+}
 
 class Escalera
+{
+    AtravesarPared()
+    -tamaño
+    -color
+}
 class Llave
+{
+    Desbloquear()
+    -color
+    -tamaño
+}
 class Trofeo
+{
+    TerminarJuego()
+    -color
+}
 class Lanza 
+{
+    Atacar()
+    -daño
+    -color 
+    -tamaño
+}
 
 class Sala
-class Puerta 
-class Laberinto
-class Pared
+{
+    -cantidadItems
+    -tamaño
+    -iluminacion
+    -dificultad
 
+}
+class Puerta 
+{
+    Abrir()
+    -tamaño 
+    -color
+}
+class Laberinto
+{
+    -tamaño
+    -color
+    -cantidadPasillo
+}
+class Pared
+{
+    -color
+    -longitud
+    -cantidad
+}
+
+class Dragon
+{
+    Atacar()
+    Perseguir()
+    -vida
+    -color
+    -tamaño
+    -daño
+    -velocidad
+}
 class Enemigo
+{
+    Atacar()
+    -vida
+    -daño
+    -velocidad 
+    -color
+}
+
 class Murcielago
+{
+    Robar()
+    Atacar()
+    -color
+    -daño
+    -velocidad
+}
+
+Jugador "1" o-- "1" Personaje
+Juego *-- "1" Jugador
+Juego o-- "1" Personaje
+
+Juego *-- "*" Enemigo
+Personaje "1" o-- "1" Escalera
+Personaje "1" o-- "1" Llave
+Personaje "1" o-- "1" Trofeo
+Personaje "1" o-- "1" Lanza
+
+Juego "1" *-- "*"Sala
+Sala "1" *-- "0,1"Laberinto
+Jugador "1" o--"0,1"Laberinto
+Sala "1"*-- "*" Puerta
+Laberinto "1" *-- "*" Pared 
+
+Murcielago --|>Enemigo
+Dragon --|>Enemigo
 
 @enduml

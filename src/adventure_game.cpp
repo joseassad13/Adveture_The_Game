@@ -10,7 +10,6 @@
 using namespace std;
 using namespace ftxui;
 
-
 int main(int argc, char const *argv[])
 {
     list<string> textos;
@@ -18,14 +17,14 @@ int main(int argc, char const *argv[])
     dragon.open("./assets/dragon.txt");
 
     string linea;
-    while (getline(dragon,linea))
+    while (getline(dragon, linea))
     {
         textos.push_back(linea);
     }
     dragon.close();
 
     int fotograma = 0;
-    
+
     string reset;
     int posX = 0;
     int posY = 6;
@@ -36,9 +35,7 @@ int main(int argc, char const *argv[])
         Element personaje = spinner(10, fotograma);
         Decorator colorFondo = bgcolor(Color::Aquamarine1);
         Decorator colorTexto = color(Color::Yellow1);
-        Element dibujo = border({
-            hbox(personaje) 
-        }) | colorFondo | colorTexto;
+        Element dibujo = border({hbox(personaje)}) | colorFondo | colorTexto;
 
         Dimensions Alto = Dimension::Full();
         Dimensions Ancho = Dimension::Full();
@@ -64,7 +61,6 @@ int main(int argc, char const *argv[])
         cout << reset;
         this_thread::sleep_for(0.1s);
     }
-    
 
     return 0;
 }
