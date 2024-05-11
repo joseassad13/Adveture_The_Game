@@ -1,6 +1,9 @@
 @startuml Adventure
 
-class Juego 
+class Juego{
+    Jugar();
+    -tiempoJugado
+}
 class Jugador
 class Personaje 
 
