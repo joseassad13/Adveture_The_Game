@@ -1,0 +1,20 @@
+@startuml Adventure
+
+class Juego 
+class Jugador
+class Personaje 
+
+class Escalera
+class Llave
+class Trofeo
+class Lanza 
+
+class Sala
+class Puerta 
+class Laberinto
+class Parded
+
+class Enemigo
+class Murcielago
+
+@enduml
