@@ -1,7 +1,7 @@
 #include "Pared.h"
 
 
-ParedJuego::ParedJuego(std::string textureName, float x, float y, bool accesible, bool salida) {
+Pared::Pared(std::string textureName, float x, float y, bool accesible, bool salida) {
     if (!setUpSprite(textureName)){
         return;
     }
@@ -11,7 +11,7 @@ ParedJuego::ParedJuego(std::string textureName, float x, float y, bool accesible
     esSalida = salida;
 }
 
- bool ParedJuego::setUpSprite(std::string textureName) {
+ bool Pared::setUpSprite(std::string textureName) {
     if(!texture.loadFromFile(textureName)){
         return false;
     }

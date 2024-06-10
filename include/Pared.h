@@ -10,7 +10,7 @@ public:
     sf::Vector2f pos;
     sf::Texture texture;
     sf::Sprite sprite;
-    ParedJuego(std::string,float,float,bool,bool);
+    Pared(std::string,float,float,bool,bool);
     bool setUpSprite(std::string);
 };
 
