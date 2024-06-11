@@ -42,7 +42,7 @@ void Personaje::update(){
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Personaje");
+    sf::RenderWindow window(sf::VideoMode(400, 400), "Personaje");
 
     Personaje personaje(sf::Vector2f(350, 350), sf::Color::Red);
 
