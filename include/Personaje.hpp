@@ -5,11 +5,11 @@
 class Personaje
 {
 public:
-    Personaje(sf::Vector2f, sf::Color)
+    Personaje(sf::Vector2f, sf::Color);
     void move(float, float);
-    void draw(sf::RenderWindow);
+    void draw(sf::RenderWindow&);
     void update();
-
+    double velocidad = 0.01;
 private:
     sf::RectangleShape shape;
     sf::Sprite sprite;
@@ -20,6 +20,6 @@ private:
     int numFrames = 4; // Número total de frames en la animación
     int frameWidth = 32;
     int frameHeight = 32;
-    double velocidad = 0.1;
+    
 };
 #endif

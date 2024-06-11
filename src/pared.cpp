@@ -1,4 +1,4 @@
-#include "Pared.h"
+#include "Pared.hpp"
 
 
 Pared::Pared(std::string textureName, float x, float y, bool accesible, bool salida) {

@@ -1,6 +1,7 @@
 #include<SFML/Graphics.hpp>
 #include "pared.cpp"
 #include "sala.cpp"
+#include "personaje.cpp"
 
 int main(){
     float windowHeight = 400;

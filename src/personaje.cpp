@@ -1,7 +1,7 @@
-#include "Personaje.h"
+#include "Personaje.hpp"
 
 
-Personaje(sf::Vector2f pos, sf::Color color)
+Personaje::Personaje(sf::Vector2f position, sf::Color color)
     {
         shape.setSize(sf::Vector2f(50, 50));
         shape.setPosition(position); // Posición inicial cuadro
@@ -9,7 +9,7 @@ Personaje(sf::Vector2f pos, sf::Color color)
 
         // Cargar la imagen desde un archivo
         
-        if (!texture.loadFromFile("assets/images/pikachu.png"))
+        if (!texture.loadFromFile("assets/jugador_adventure.png"))
         {
         
         }
@@ -18,19 +18,19 @@ Personaje(sf::Vector2f pos, sf::Color color)
     }
 
 
-void move(float offsetX, float offsetY)
+void Personaje::move(float offsetX, float offsetY)
     {
         sprite.move(offsetX, offsetY);
         shape.move(offsetX, offsetY);
     }
 
-void draw(sf::RenderWindow &window)
+void Personaje::draw(sf::RenderWindow &window)
     {
         window.draw(this->shape);
         window.draw(this->sprite);
     }
 
-void update(){
+void Personaje::update(){
         // Actualizar el frame de la animación
         if (clock.getElapsedTime().asSeconds() >= frameTime)
         {
@@ -42,43 +42,34 @@ void update(){
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "DinoChrome");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Personaje");
 
-    Personaje pika(sf::Vector2f(400, 300), sf::Color::Red);
+    Personaje personaje(sf::Vector2f(350, 350), sf::Color::Red);
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()){
         sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
+        while (window.pollEvent(event)){
+            if (event.type == sf::Event::Closed){
                 window.close();
             }
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        {
-            pika.move(velocidad * -1, 0);
-        }
+            personaje.move(personaje.velocidad * -1, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        {
-            pika.move(velocidad, 0);
-        }
+            personaje.move(personaje.velocidad, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        {
-            pika.move(0, velocidad * -1);
-        }
+            personaje.move(0, personaje.velocidad * -1);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        {
-            pika.move(0, velocidad);
-        }
+            personaje.move(0, personaje.velocidad);
+        
+        
 
-        // Actualizar animacion pikachu
-        pika.update();
+        // Actualizar animacion 
+        //personaje.update();
 
         window.clear();
-        pika.draw(window);
+        personaje.draw(window);
         window.display();
     }
 

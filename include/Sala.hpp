@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Pared.h"
+#include "Pared.hpp"
 #include <vector>
 
 #ifndef SALA_H

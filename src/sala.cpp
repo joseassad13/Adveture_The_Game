@@ -1,6 +1,6 @@
-#include "Sala.h"
+#include "Sala.hpp"
 
-Sala::Sala(){
+Sala::Sala::Sala(){
     tamanioPared = 8;
     setUpInitialState();
 }
