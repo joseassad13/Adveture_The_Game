@@ -9,7 +9,7 @@ public:
     void move(float, float);
     void draw(sf::RenderWindow&);
     void update();
-    double velocidad = 0.5;
+    double velocidad = 0.1;
 private:
     sf::RectangleShape shape;
     sf::Sprite sprite;
