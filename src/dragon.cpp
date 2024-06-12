@@ -9,7 +9,7 @@ Dragon::Dragon(sf::Vector2f position, sf::Color color)
 
         // Cargar la imagen desde un archivo
         
-        if (!texture.loadFromFile("assets/dragon_adventure_actions.png"))
+        if (!texture.loadFromFile("assets/dragon_adventure_actions2.png"))
         {
         
         }
@@ -35,7 +35,7 @@ void Dragon::update(){
         if (clock.getElapsedTime().asSeconds() >= frameTime)
         {
             currentFrame = (currentFrame + 1) % numFrames;
-            sprite.setTextureRect(sf::IntRect((currentFrame * 6)+10, 20, 300, 300));
+            sprite.setTextureRect(sf::IntRect((currentFrame * 69),0, 69, 185));
             clock.restart();
         }
     }
