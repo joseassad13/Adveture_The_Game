@@ -2,7 +2,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Dragon");
+    sf::RenderWindow window(sf::VideoMode(960, 640), "Dragon");
     Dragon dragon;
 
     while (window.isOpen())

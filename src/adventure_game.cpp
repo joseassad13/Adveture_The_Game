@@ -8,8 +8,8 @@ using namespace std;
 
 int main()
 {
-    float windowHeight = 400;
-    float windowWidth = 400;
+    float windowHeight = 640;
+    float windowWidth = 960;
 
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ADVENTURE");
 
