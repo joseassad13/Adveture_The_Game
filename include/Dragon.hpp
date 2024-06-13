@@ -18,24 +18,26 @@ public:
 class Dragon : public Entidad
 {
 public:
-    Dragon();
-    // Dragon(sf::Vector2f, sf::Color);
-    // void move(float, float);
-    // void Draw(sf::RenderWindow &);
-    // void Update();
-    // double velocidad = 0.5;
+    Dragon() : Entidad(sf::Vector2f(350, 350), sf::Color::Red) {}
+    void Update()
+    {
+        // Que haga lo que ya hacia
+        Entidad::Update();
 
-private:
-    // sf::RectangleShape shape;
-    // sf::Sprite sprite;
-    // sf::Texture texture;
-    // sf::Clock clock;
-    // float frameTime = 0.1f; // Tiempo entre cada frame en segundos
-    // int currentFrame = 0;
-    // int numFrames = 4; // Número total de frames en la animación
-    // int frameWidth = 32;
-    // int frameHeight = 32;
+        // Que haga esto nuevo
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            Entidad::move(Entidad::velocidad * -1, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            Entidad::move(Entidad::velocidad, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            Entidad::move(0, Entidad::velocidad * -1);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            Entidad::move(0, Entidad::velocidad);
+    }
+
+    
 };
+
 
 // Dragon::Dragon(sf::Vector2f position, sf::Color color)
 // {

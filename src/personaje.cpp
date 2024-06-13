@@ -16,19 +16,8 @@ int main()
             }
         }
 
-        personaje.Update();
-
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        //     Entidad::move(personaje.velocidad * -1, 0);
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        //     personaje.move(personaje.velocidad, 0);
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        //     personaje.move(0, personaje.velocidad * -1);
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        //     personaje.move(0, personaje.velocidad);
-
         // Actualizar animacion
-        // personaje.Update();
+        personaje.Update();
 
         window.clear();
         personaje.Draw(window);

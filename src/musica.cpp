@@ -1,5 +1,4 @@
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
+#include<Musica.hpp>
 
 int main()
 {

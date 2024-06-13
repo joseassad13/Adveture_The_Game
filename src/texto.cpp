@@ -32,7 +32,7 @@ int main()
         }
 
         window.clear();
-        window.Draw(text);
+        window.draw(text);
         window.display();
     }
 
