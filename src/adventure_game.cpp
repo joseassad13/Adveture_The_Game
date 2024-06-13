@@ -1,31 +1,60 @@
-#include<SFML/Graphics.hpp>
-#include "pared.cpp"
-#include "sala.cpp"
-#include "personaje.cpp"
+#include <SFML/Graphics.hpp>
+#include <list>
+#include <Entidad.hpp>
+#include <Personaje.hpp>
+#include <Dragon.hpp>
+#include <Sala.hpp>
+using namespace std;
 
-int main(){
+int main()
+{
     float windowHeight = 400;
     float windowWidth = 400;
 
-    sf::RenderWindow window(sf::VideoMode(windowWidth,windowHeight),"ADVENTURE");
-    
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ADVENTURE");
+
+    list<Entidad*> entidades;
+    entidades.push_back(new Personaje());
+    entidades.push_back(new Personaje());
+    entidades.push_back(new Personaje());
+    entidades.push_back(new Personaje());
+    entidades.push_back(new Personaje());
+    entidades.push_back(new Personaje());
+
     Sala sala = Sala();
 
-    while(window.isOpen()){
+    while (window.isOpen())
+    {
         sf::Event event;
 
-
-        while(window.pollEvent(event)){
-            if(event.type == sf::Event::Closed){
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
                 window.close();
             }
 
             window.clear();
 
-            for (int i = 0; i < sala.tamanioPared; i++ ) {
-                for (int j = 0; j < sala.tamanioPared; j++ ) {
+            
+            
+
+            for (int i = 0; i < sala.tamanioPared; i++)
+            {
+                for (int j = 0; j < sala.tamanioPared; j++)
+                {
                     window.draw(sala.paredes[i][j]->sprite);
                 }
+            }
+
+            for (auto &&e : entidades)
+            {
+                e->update();
+            }
+
+            for (auto &&e : entidades)
+            {
+                e->draw(window);
             }
             window.display();
         }
