@@ -5,7 +5,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Personaje");
     Personaje personaje;
 
-    Personaje();
     while (window.isOpen())
     {
         sf::Event event;
@@ -16,7 +15,8 @@ int main()
                 window.close();
             }
         }
-        
+
+        personaje.Update();
 
         // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         //     Entidad::move(personaje.velocidad * -1, 0);
@@ -28,10 +28,10 @@ int main()
         //     personaje.move(0, personaje.velocidad);
 
         // Actualizar animacion
-        // personaje.update();
+        // personaje.Update();
 
         window.clear();
-        personaje.draw(window);
+        personaje.Draw(window);
         window.display();
     }
 

@@ -1,9 +1,10 @@
-#pragma once 
+#pragma once
 
 class Jugador
 {
 private:
-    /* data */
+    int puntaje;
+
 public:
     Jugador(/* args */) {}
     ~Jugador() {}

@@ -1,11 +1,11 @@
 #include <Dragon.hpp>
 
-
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Dragon");
+    Dragon dragon;
 
-    Dragon dragon(sf::Vector2f(350, 350), sf::Color::Red);
+    dragon.Update();
 
     while (window.isOpen())
     {
@@ -18,20 +18,20 @@ int main()
             }
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-            Entidad::move(Entidad::velocidad * -1, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-            dragon.move(dragon.velocidad, 0);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-            dragon.move(0, dragon.velocidad * -1);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-            dragon.move(0, dragon.velocidad);
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        //     Entidad::move(Entidad::velocidad * -1, 0);
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        //     dragon.move(dragon.velocidad, 0);
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        //     dragon.move(0, dragon.velocidad * -1);
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        //     dragon.move(0, dragon.velocidad);
 
         // Actualizar animacion
-        dragon.update();
+        dragon.Update();
 
         window.clear();
-        dragon.draw(window);
+        dragon.Draw(window);
         window.display();
     }
 

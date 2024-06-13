@@ -21,15 +21,8 @@ class Personaje
     -color
     -vida
     -velocidad
-    -vision
 }
 
-class Escalera
-{
-    AtravesarPared()
-    -tamaño
-    -color
-}
 class Llave
 {
     Desbloquear()
@@ -51,15 +44,15 @@ class Lanza
 
 class Sala
 {
-    -cantidadItems
+    -paredes
     -tamaño
-    -iluminacion
-    -dificultad
-
+    -puertas
+    -suelo
+    -items
 }
 class Puerta 
 {
-    Abrir()
+    DejarPasar()
     -tamaño 
     -color
 }
@@ -67,13 +60,12 @@ class Laberinto
 {
     -tamaño
     -color
-    -cantidadPasillo
+    -cantidadSalas
 }
 class Pared
 {
     -color
     -longitud
-    -cantidad
 }
 
 class Dragon
@@ -95,32 +87,25 @@ class Enemigo
     -color
 }
 
-class Murcielago
-{
-    Robar()
-    Atacar()
-    -color
-    -daño
-    -velocidad
-}
+
+class Entidad
 
 Jugador "1" o-- "1" Personaje
 Juego *-- "1" Jugador
 Juego o-- "1" Personaje
 
 Juego *-- "*" Enemigo
-Personaje "1" o-- "1" Escalera
 Personaje "1" o-- "1" Llave
 Personaje "1" o-- "1" Trofeo
 Personaje "1" o-- "1" Lanza
 
-Juego "1" *-- "*"Sala
-Sala "1" *-- "0,1"Laberinto
-Jugador "1" o--"0,1"Laberinto
+Juego "1" *-- "*"Laberinto
+Laberinto "1" *-- "*"Sala
+Jugador "1" o--"1"Sala
 Sala "1"*-- "*" Puerta
-Laberinto "1" *-- "*" Pared 
+Sala "1" *-- "*" Pared 
 
-Murcielago --|>Enemigo
-Dragon --|>Enemigo
+Personaje -|> Entidad
+Dragon -|> Entidad
 
 @enduml

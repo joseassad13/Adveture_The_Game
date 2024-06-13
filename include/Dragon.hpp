@@ -3,9 +3,11 @@
 #include <Entidad.hpp>
 #include <iostream>
 
-class FileNotFoundException {
+class FileNotFoundException
+{
 private:
     std::string file;
+
 public:
     FileNotFoundException(std::string File)
     {
@@ -16,10 +18,11 @@ public:
 class Dragon : public Entidad
 {
 public:
+    Dragon();
     // Dragon(sf::Vector2f, sf::Color);
     // void move(float, float);
-    // void draw(sf::RenderWindow &);
-    // void update();
+    // void Draw(sf::RenderWindow &);
+    // void Update();
     // double velocidad = 0.5;
 
 private:
@@ -56,13 +59,13 @@ private:
 //     shape.move(offsetX, offsetY);
 // }
 
-// void Dragon::draw(sf::RenderWindow &window)
+// void Dragon::Draw(sf::RenderWindow &window)
 // {
-//     window.draw(this->shape);
-//     window.draw(this->sprite);
+//     window.Draw(this->shape);
+//     window.Draw(this->sprite);
 // }
 
-// void Dragon::update()
+// void Dragon::Update()
 // {
 //     // Actualizar el frame de la animación
 //     if (clock.getElapsedTime().asSeconds() >= frameTime)

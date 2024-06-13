@@ -15,14 +15,14 @@ private:
     int frameHeight = 32;
 
 protected:
-    double velocidad = 0.01;
+    double velocidad = 0.1;
 
 public:
     Entidad(sf::Vector2f, sf::Color);
     ~Entidad();
     void move(float, float);
-    void draw(sf::RenderWindow &);
-    void update();
+    void Draw(sf::RenderWindow &);
+    void Update();
 };
 
 Entidad::~Entidad()
@@ -50,13 +50,13 @@ void Entidad::move(float offsetX, float offsetY)
     shape.move(offsetX, offsetY);
 }
 
-void Entidad::draw(sf::RenderWindow &window)
+void Entidad::Draw(sf::RenderWindow &window)
 {
     window.draw(this->shape);
     window.draw(this->sprite);
 }
 
-void Entidad::update()
+void Entidad::Update()
 {
     // Actualizar el frame de la animación
     if (clock.getElapsedTime().asSeconds() >= frameTime)
