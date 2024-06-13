@@ -1,7 +1,6 @@
 #pragma once
 #include <Entidad.hpp>
 #include <SFML/Graphics.hpp>
-#include <experimental/random>
 
 class Personaje : public Entidad
 {

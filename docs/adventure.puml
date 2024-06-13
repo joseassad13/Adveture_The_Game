@@ -15,31 +15,26 @@ class Personaje
 {
     Agarrar()
     Soltar()
-    Caminar()
-    Luchar()
-    Acceder()
-    -color
-    -vida
-    -velocidad
+    Moverse()
+    
 }
-
-class Llave
-{
-    Desbloquear()
+class Objeto{
     -color
     -tamaño
+}
+class Llave
+{
+    Acceder()
+   
 }
 class Trofeo
 {
     TerminarJuego()
-    -color
 }
 class Lanza 
 {
     Atacar()
     -daño
-    -color 
-    -tamaño
 }
 
 class Sala
@@ -72,34 +67,29 @@ class Dragon
 {
     Atacar()
     Perseguir()
-    -vida
-    -color
+    -daño
+   
+}
+
+class Entidad{
     -tamaño
-    -daño
-    -velocidad
-}
-class Enemigo
-{
-    Atacar()
+    -textura
     -vida
-    -daño
-    -velocidad 
-    -color
+    -velocidad
+
 }
-
-
-class Entidad
 
 Jugador "1" o-- "1" Personaje
 Juego *-- "1" Jugador
 Juego o-- "1" Personaje
 
-Juego *-- "*" Enemigo
-Personaje "1" o-- "1" Llave
-Personaje "1" o-- "1" Trofeo
-Personaje "1" o-- "1" Lanza
+Llave -|> Objeto
+Trofeo-|> Objeto
+Lanza -|> Objeto
 
-Juego "1" *-- "*"Laberinto
+Personaje "1" o-- "1" Objeto
+
+Juego "1" *-- "1"Laberinto
 Laberinto "1" *-- "*"Sala
 Jugador "1" o--"1"Sala
 Sala "1"*-- "*" Puerta

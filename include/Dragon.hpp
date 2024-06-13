@@ -1,6 +1,6 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include <Entidad.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 
 class FileNotFoundException
@@ -18,7 +18,24 @@ public:
 class Dragon : public Entidad
 {
 public:
-    Dragon() : Entidad(sf::Vector2f(350, 350), sf::Color::Red) {}
+    sf::Vector2f position;
+    sf::Color color;
+    Dragon() : Entidad(sf::Vector2f(350, 350), sf::Color::Red)
+    {
+        this->shape.setPosition(position); // Posición inicial cuadro
+        this ->shape.setScale(sf::Vector2(0.5f,0.5f));
+        this->shape.setFillColor(color);
+        this->shape.setScale(sf::Vector2f(.5f, .5f));
+
+        // Cargar la imagen desde un archivo
+        std::string file = "assets/Images/dragon_adventure_actions2.png";
+        if (!texture.loadFromFile(file))
+        {
+            // throw new FileNotFoundException(file);
+        }
+        this->sprite = sf::Sprite(texture);
+        this->sprite.setPosition(position); // Posición inicial sprite
+    }
     void Update()
     {
         // Que haga lo que ya hacia
@@ -34,10 +51,7 @@ public:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             Entidad::move(0, Entidad::velocidad);
     }
-
-    
 };
-
 
 // Dragon::Dragon(sf::Vector2f position, sf::Color color)
 // {
