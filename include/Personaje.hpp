@@ -1,25 +1,30 @@
+#pragma once
+#include <Entidad.hpp>
 #include <SFML/Graphics.hpp>
+#include <experimental/random>
 
-#ifndef PERSONAJE_H
-#define PERSONAJE_H
-class Personaje
+class Personaje : public Entidad
 {
 public:
-    Personaje(sf::Vector2f, sf::Color);
-    void move(float, float);
-    void draw(sf::RenderWindow&);
-    void update();
-    double velocidad = 0.01;
+    // Personaje() : Entidad(sf::Vector2f(350, 350), sf::Color::Red){
+    Personaje() : Entidad(sf::Vector2f(std::rand(), std::rand()), sf::Color::Red){
+
+    }
 private:
-    sf::RectangleShape shape;
-    sf::Sprite sprite;
-    sf::Texture texture;
-    sf::Clock clock;
-    float frameTime = 0.1f; // Tiempo entre cada frame en segundos
-    int currentFrame = 0;
-    int numFrames = 4; // Número total de frames en la animación
-    int frameWidth = 32;
-    int frameHeight = 32;
+    void update(){
+        Entidad::update();
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            Entidad::move(Entidad::velocidad * -1, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            Entidad::move(Entidad::velocidad, 0);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            Entidad::move(0, Entidad::velocidad * -1);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            Entidad::move(0, Entidad::velocidad);
+    }
     
 };
-#endif
+
+
+
