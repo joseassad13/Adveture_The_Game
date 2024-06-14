@@ -18,6 +18,7 @@ public:
 class Dragon : public Entidad
 {
 public:
+    sf::RectangleShape dragon;
     sf::Vector2f position;
     sf::Color color;
     Dragon() : Entidad(sf::Vector2f(350, 350), sf::Color::Red)

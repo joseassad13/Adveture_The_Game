@@ -49,18 +49,16 @@ class Puerta
 {
     DejarPasar()
     -tamaño 
-    -color
+    -textura
 }
 class Laberinto
 {
-    -tamaño
-    -color
     -cantidadSalas
 }
 class Pared
 {
-    -color
-    -longitud
+    -textura
+    -tamaño
 }
 
 class Dragon

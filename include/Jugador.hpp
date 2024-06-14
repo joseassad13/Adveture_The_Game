@@ -4,8 +4,12 @@ class Jugador
 {
 private:
     int puntaje;
+    int numeroIntento;
 
 public:
-    Jugador(/* args */) {}
+    void ControlarPersonaje();
+    Jugador() {}
     ~Jugador() {}
 };
+
+ void Jugador::ControlarPersonaje() {}

@@ -26,11 +26,12 @@ int main()
     entidades.push_back(new Personaje());
 
     Sala sala = Sala();
+    
 
     while (window.isOpen())
     {
         sf::Event event;
-
+       
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
