@@ -15,7 +15,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ADVENTURE");
 
     sf::Music music;
-    if (!music.openFromFile("./assets/Music/slow-2021-08-16_-_8_Bit_Adventure_-_www.FesliyanStudios.com.mp3"))
+    if (!music.openFromFile("./assets/Music/Musica_Base.mp3"))
     {
         // Error al cargar el archivo de música
         return -1;
