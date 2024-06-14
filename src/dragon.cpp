@@ -1,9 +1,22 @@
 #include <Dragon.hpp>
+#include <SFML/Audio.hpp>
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(960, 640), "Dragon");
+    // window.setFramerateLimit(60);
     Dragon dragon;
+    sf::Music music;
+    // --------------------------- MUSICA -------------------------------
+    if (!music.openFromFile("./assets/Music/slow-2021-08-16_-_8_Bit_Adventure_-_www.FesliyanStudios.com.mp3"))
+    {
+        // Error al cargar el archivo de música
+        return -1;
+    }
+
+    // Reproducir la música
+    music.play();
+    // --------------------------- MUSICA -------------------------------
 
     while (window.isOpen())
     {
@@ -21,6 +34,11 @@ int main()
         window.clear();
         dragon.Draw(window);
         window.display();
+        if (music.getStatus() != sf::Music::Playing)
+        {
+            window.close();
+        }
+
     }
 
     return 0;

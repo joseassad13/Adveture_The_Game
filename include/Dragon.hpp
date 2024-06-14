@@ -22,8 +22,9 @@ public:
     sf::Color color;
     Dragon() : Entidad(sf::Vector2f(350, 350), sf::Color::Red)
     {
+        this->shape.setSize(sf::Vector2f(69,185));
         this->shape.setPosition(position); // Posición inicial cuadro
-        this ->shape.setScale(sf::Vector2(0.5f,0.5f));
+        this ->shape.setScale(sf::Vector2(2.5f,2.5f));
         this->shape.setFillColor(color);
         this->shape.setScale(sf::Vector2f(.5f, .5f));
 

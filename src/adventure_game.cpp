@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <list>
 #include <Entidad.hpp>
 #include <Personaje.hpp>
@@ -12,6 +13,14 @@ int main()
     float windowWidth = 960;
 
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ADVENTURE");
+
+    sf::Music music;
+    if (!music.openFromFile("./assets/Music/slow-2021-08-16_-_8_Bit_Adventure_-_www.FesliyanStudios.com.mp3"))
+    {
+        // Error al cargar el archivo de música
+        return -1;
+    }
+    music.play();
 
     list<Personaje *> entidades;
     entidades.push_back(new Personaje());
@@ -50,5 +59,9 @@ int main()
             e->Draw(window);
         }
         window.display();
+        if (music.getStatus() != sf::Music::Playing)
+        {
+            window.close();
+        }
     }
 }

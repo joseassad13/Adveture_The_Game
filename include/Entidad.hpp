@@ -4,9 +4,9 @@
 class Entidad
 {
 private:
-    float frameTime = 0.1f; // Tiempo entre cada frame en segundos
+    float frameTime = 0.15f; // Tiempo entre cada frame en segundos
     int currentFrame = 0;
-    int numFrames = 4; // Número total de frames en la animación
+    int numFrames = 2; // Número total de frames en la animación
     int frameWidth = 32;
     int frameHeight = 32;
 
