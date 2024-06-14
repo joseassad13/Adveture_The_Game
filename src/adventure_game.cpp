@@ -8,17 +8,12 @@ using namespace std;
 
 int main()
 {
-    float windowHeight = 400;
-    float windowWidth = 400;
+    float windowHeight = 640;
+    float windowWidth = 960;
 
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ADVENTURE");
 
-    list<Entidad*> entidades;
-    entidades.push_back(new Personaje());
-    entidades.push_back(new Personaje());
-    entidades.push_back(new Personaje());
-    entidades.push_back(new Personaje());
-    entidades.push_back(new Personaje());
+    list<Personaje *> entidades;
     entidades.push_back(new Personaje());
 
     Sala sala = Sala();
@@ -33,30 +28,27 @@ int main()
             {
                 window.close();
             }
-
-            window.clear();
-
-            
-            
-
-            for (int i = 0; i < sala.tamanioPared; i++)
-            {
-                for (int j = 0; j < sala.tamanioPared; j++)
-                {
-                    window.draw(sala.paredes[i][j]->sprite);
-                }
-            }
-
-            for (auto &&e : entidades)
-            {
-                e->update();
-            }
-
-            for (auto &&e : entidades)
-            {
-                e->draw(window);
-            }
-            window.display();
         }
+
+        window.clear();
+
+        for (int i = 0; i < sala.tamanioPared; i++)
+        {
+            for (int j = 0; j < sala.tamanioPared; j++)
+            {
+                window.draw(sala.paredes[i][j]->sprite);
+            }
+        }
+
+        for (auto &&e : entidades)
+        {
+            e->Update();
+        }
+
+        for (auto &&e : entidades)
+        {
+            e->Draw(window);
+        }
+        window.display();
     }
 }

@@ -1,10 +1,17 @@
-#pragma once 
+#pragma once
+#include <Jugador.hpp>
 
 class Juego
 {
 private:
-    /* data */
+    Jugador jugador;
+
 public:
-    Juego(/* args */) {}
+    Juego() {}
     ~Juego() {}
+    void Jugar();
 };
+
+void Jugar()
+{
+}

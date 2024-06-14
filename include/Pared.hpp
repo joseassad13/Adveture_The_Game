@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
 class Pared
 {
 public:
@@ -10,7 +9,7 @@ public:
     sf::Vector2f pos;
     sf::Texture texture;
     sf::Sprite sprite;
-    Pared(std::string,float,float,bool,bool);
+    Pared(std::string, float, float, bool, bool);
     bool setUpSprite(std::string);
 };
 
@@ -37,4 +36,3 @@ bool Pared::setUpSprite(std::string textureName)
     sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
     return true;
 }
-

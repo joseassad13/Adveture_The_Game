@@ -2,10 +2,9 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Personaje");
+    sf::RenderWindow window(sf::VideoMode(960, 640), "Personaje");
     Personaje personaje;
 
-    Personaje();
     while (window.isOpen())
     {
         sf::Event event;
@@ -16,22 +15,12 @@ int main()
                 window.close();
             }
         }
-        
-
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        //     Entidad::move(personaje.velocidad * -1, 0);
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        //     personaje.move(personaje.velocidad, 0);
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        //     personaje.move(0, personaje.velocidad * -1);
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        //     personaje.move(0, personaje.velocidad);
 
         // Actualizar animacion
-        // personaje.update();
+        personaje.Update();
 
         window.clear();
-        personaje.draw(window);
+        personaje.Draw(window);
         window.display();
     }
 

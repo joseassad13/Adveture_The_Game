@@ -13,9 +13,7 @@ int main()
         return -1;
     }
 
-   
-
-    // Crear un objeto de texto
+       // Crear un objeto de texto
     sf::Text text;
     text.setFont(font);
     text.setString("Adventure_The_Game!");
