@@ -3,8 +3,12 @@
 class Lanza
 {
 private:
-    /* data */
+    int daño;
 public:
+    void Atacar();
     Lanza(/* args */) {}
     ~Lanza() {}
 };
+
+
+void Lanza::Atacar(){}

@@ -3,7 +3,7 @@
 class Laberinto
 {
 private:
-    /* data */
+    int cantidadSalas;
 public:
     Laberinto(/* args */) {}
     ~Laberinto() {}

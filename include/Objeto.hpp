@@ -3,7 +3,8 @@
 class Objeto
 {
 private:
-    /* data */
+    int color;
+    int tamaño;
 public:
     Objeto(/* args */);
     ~Objeto();

@@ -15,7 +15,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ADVENTURE");
 
     sf::Music music;
-    if (!music.openFromFile("./assets/Music/slow-2021-08-16_-_8_Bit_Adventure_-_www.FesliyanStudios.com.mp3"))
+    if (!music.openFromFile("./assets/Music/Musica_Base.mp3"))
     {
         // Error al cargar el archivo de música
         return -1;
@@ -26,11 +26,12 @@ int main()
     entidades.push_back(new Personaje());
 
     Sala sala = Sala();
+    
 
     while (window.isOpen())
     {
         sf::Event event;
-
+       
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
