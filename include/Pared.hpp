@@ -1,77 +1,42 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <fstream>
+#include <SFML/Graphics.hpp>
+#include <list>
+using namespace std;
 
-class Pared
+sf::Sprite generarBloque(int tipo, sf::Texture &texture)
 {
-public:
-    bool esAccesible;
-    bool esSalida;
-    sf::Vector2f pos;
-    sf::Texture texture;
-    sf::Sprite sprite;
-    Pared(std::string, float, float, bool, bool);
-    bool setUpSprite(std::string);
-};
+    sf::Sprite bloque;
 
-Pared::Pared(std::string textureName, float x, float y, bool accesible, bool salida)
-{
-    if (!setUpSprite(textureName))
+    int bloquePosX = 0;
+    int bloquePosY = 0;
+
+    switch (tipo)
     {
-        return;
+    case 0:
+        bloquePosX = 5;
+        bloquePosY = 0;
+        break;
+    case 1:
+        bloquePosX = 3;
+        bloquePosY = 1;
+        break;
+
+    default:
+        break;
     }
-    pos = sf::Vector2f(x, y);
-    sprite.setPosition(pos);
-    esAccesible = accesible;
-    esSalida = salida;
+
+    bloque = sf::Sprite(texture);
+
+    int bloqueTamaño = 32;
+    bloque.setTextureRect(
+        sf::IntRect(
+            bloquePosX * bloqueTamaño,
+            bloquePosY * bloqueTamaño,
+            bloqueTamaño,
+            bloqueTamaño));
+
+    return bloque;
 }
-
-bool Pared::setUpSprite(std::string textureName)
-{
-    if (!texture.loadFromFile(textureName))
-    {
-        return false;
-    }
-    texture.setSmooth(true);
-    sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
-    return true;
-}
-
-// #pragma once
-// #include <SFML/Graphics.hpp>
-
-// class Pared
-// {
-// public:
-//     bool esAccesible;
-//     bool esSalida;
-//     sf::Vector2f pos;
-//     sf::Texture texture;
-//     sf::Sprite sprite;
-//     Pared(std::string, float, float, bool, bool);
-//     bool setUpSprite(std::string);
-// };
-
-// Pared::Pared(std::string textureName, float x, float y, bool accesible, bool salida)
-// {
-//     if (!setUpSprite(textureName))
-//     {
-//         return;
-//     }
-//     pos = sf::Vector2f(x, y);
-//     sprite.setPosition(pos);
-//     esAccesible = accesible;
-//     esSalida = salida;
-// }
-
-// bool Pared::setUpSprite(std::string textureName)
-// {
-//     if (!texture.loadFromFile(textureName))
-//     {
-//         return false;
-//     }
-//     texture.setSmooth(true);
-//     sprite.setTexture(texture);
-//     sprite.setTextureRect(sf::IntRect(0, 0, 50, 50));
-//     return true;
-// }
