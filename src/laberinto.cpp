@@ -76,5 +76,5 @@ void generarLaberinto(int filas, int columnas, float densidad)
 
 int main()
 {
-    generarLaberinto(80, 80, .2);
+    generarLaberinto(30, 20, .2);
 }
