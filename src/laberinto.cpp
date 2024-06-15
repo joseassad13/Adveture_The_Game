@@ -8,8 +8,8 @@ void generarLaberinto(int filas, int columnas, float densidad)
 {
     // matriz doble para que sea dinamica
     int **matriz;
-    matriz - new int *[filas];
-    int FParedes = densidad * 8;
+    matriz = new int *[filas];
+    int FParedes = densidad * 10;
     densidad = filas * columnas * densidad / 4;
 
     // para fila crea numero de columnas
@@ -52,7 +52,7 @@ void generarLaberinto(int filas, int columnas, float densidad)
             if (matriz[my[r]][mx[r]] == 0)
             {
                 matriz[my[r]][mx[r]] == 1;
-                matriz[my[r] + (y - my[r]) / 2][mx[r] + (x - mx[r]) / 2] == 1;
+                matriz[my[r] + (y - my[r]) / 2][mx[r] + (x - mx[r]) / 2] = 1;
             }
         }
     }
@@ -76,5 +76,5 @@ void generarLaberinto(int filas, int columnas, float densidad)
 
 int main()
 {
-    generarLaberinto(25, 19, 1);
+    generarLaberinto(80, 80, .2);
 }
