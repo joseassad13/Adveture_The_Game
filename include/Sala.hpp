@@ -6,9 +6,9 @@
 #include <Pared.hpp>
 using namespace std;
 
-int main(int argc, char const *argv[])
+int generarSala()
 {
-
+    generarBloque;
     // Nombre del archivo
     std::string filename = "./assets/salas/laberinto.txt";
 
