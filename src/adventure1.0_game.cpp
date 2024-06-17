@@ -35,7 +35,7 @@ void updateEnemyAnimation(sf::Sprite &enemySprite, sf::Clock &clock, int &frame,
 int main()
 {
     float windowHeight = 640;
-    float windowWidth = 960;
+    float windowWidth = 640;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
     Personaje personaje;
 
@@ -73,7 +73,7 @@ int main()
     // Set initial positions
     playerSprite.setPosition(400.f, 300.f);
     enemySprite.setPosition(100.f, 100.f);
-    enemySprite.setScale(0.3f, 0.3f);
+    enemySprite.setScale(0.2f, 0.1f);
     swordSprite.setPosition(200.f, 200.f); // Set initial position for the sword
 
     float enemySpeed = 0.05f;            // Enemy speed
@@ -88,7 +88,7 @@ int main()
     const int ANIMATION_FRAMES = 4; // Number of frames in your animation
     int currentFrame = 0;
     sf::Clock animationClock; // Clock to control animation timing
-    
+
     // -------------------------------------------------laberinto---------------------------------------------------------//
     // Nombre del archivo
     std::string filename = "./assets/salas/laberinto1.txt";
@@ -152,7 +152,7 @@ int main()
                 window.close();
             }
         }
-    // -----------------------------------------persecucion-----------------------------------------------------------------//
+        // -----------------------------------------persecucion-----------------------------------------------------------------//
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && playerSprite.getPosition().x > 0)
             playerSprite.move(-moveSpeed, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && playerSprite.getPosition().x < window.getSize().x - playerTexture.getSize().x)
@@ -194,7 +194,7 @@ int main()
         }
         spacePressedLastFrame = spacePressedThisFrame;
 
-    // --------------------------------------------------imprimir en ventana--------------------------------------------------------//
+        // --------------------------------------------------imprimir en ventana--------------------------------------------------------//
 
         window.clear();
         for (auto &&linea : mapa1)
@@ -215,7 +215,6 @@ int main()
         // personaje.Draw(window);
         // window.display();
     }
-    
 
     return 0;
 }

@@ -5,7 +5,6 @@ int main()
     sf::RenderWindow window(sf::VideoMode(960, 640), "Personaje");
     Personaje personaje;
 
-
     while (window.isOpen())
     {
         sf::Event event;

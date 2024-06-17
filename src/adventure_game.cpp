@@ -7,14 +7,15 @@ std::vector<std::vector<char>> laberinto = {
     {'#', ' ', ' ', ' ', '#'},
     {'#', ' ', '#', ' ', '#'},
     {'#', ' ', ' ', ' ', '#'},
-    {'#', '#', '#', '#', '#'}
-};
+    {'#', '#', '#', '#', '#'}};
 
-bool esPared(int fila, int columna) {
+bool esPared(int fila, int columna)
+{
     return laberinto[fila][columna] == '#';
 }
 
-int main() {
+int main()
+{
     int filaActual = 1;
     int columnaActual = 1;
 
@@ -22,12 +23,15 @@ int main() {
     int nuevaFila = filaActual;
     int nuevaColumna = columnaActual + 1;
 
-    if (!esPared(nuevaFila, nuevaColumna)) {
+    if (!esPared(nuevaFila, nuevaColumna))
+    {
         // La próxima posición no es una pared, permite el movimiento
         filaActual = nuevaFila;
         columnaActual = nuevaColumna;
         std::cout << "Personaje movido a (" << filaActual << ", " << columnaActual << ")\n";
-    } else {
+    }
+    else
+    {
         std::cout << "¡No puedes atravesar la pared!\n";
     }
 
