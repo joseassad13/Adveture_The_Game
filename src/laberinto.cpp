@@ -67,7 +67,7 @@ void generarLaberinto(int filas, int columnas, float densidad)
             }
             if (matriz[i][j] == 0)
             {
-                cout << " ";
+                cout << "0";
             }
         }
         cout << "\n";
@@ -76,5 +76,5 @@ void generarLaberinto(int filas, int columnas, float densidad)
 
 int main()
 {
-    generarLaberinto(30, 20, .2);
+    generarLaberinto(20, 20, .5);
 }

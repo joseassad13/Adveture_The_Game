@@ -3,8 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 #include <Pared.hpp>
+#include <Entidad.hpp>
+#include <SFML/Audio.hpp>
+#include <Personaje.hpp>
 using namespace std;
-
+//------------------------------------------generador de mapas------------------------------------------------------
 int main()
 {
     // Nombre del archivo
@@ -89,5 +92,6 @@ int main()
 
         window.display();
     }
+
     return 0;
 }

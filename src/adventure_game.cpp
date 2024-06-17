@@ -25,7 +25,7 @@ int main()
     list<Personaje *> entidades;
     entidades.push_back(new Personaje());
 
-    Sala sala = Sala();
+  
     
 
     while (window.isOpen())
@@ -41,14 +41,6 @@ int main()
         }
 
         window.clear();
-
-        for (int i = 0; i < sala.tamanioPared; i++)
-        {
-            for (int j = 0; j < sala.tamanioPared; j++)
-            {
-                window.draw(sala.paredes[i][j]->sprite);
-            }
-        }
 
         for (auto &&e : entidades)
         {
