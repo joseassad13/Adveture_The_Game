@@ -6,11 +6,16 @@
 #include <Pared.hpp>
 using namespace std;
 
-int generarSala()
+sf::Sprite generarSala()
 {
+    sf::Sprite mapa1;
+// Leer el archivo línea por línea
+    std::string line;
+    list<list<sf::Sprite>> mapa1;
+    list<list<sf::Sprite>> Personaje;
 
     // Nombre del archivo
-    std::string filename = "./assets/salas/laberinto.txt";
+    std::string filename = "./assets/salas/laberinto1.txt";
 
     // Crear un objeto ifstream
     std::ifstream inputFile(filename);
@@ -28,9 +33,6 @@ int generarSala()
         return -1;
     }
 
-    // Leer el archivo línea por línea
-    std::string line;
-    list<list<sf::Sprite>> mapa;
     int y = 0;
     while (std::getline(inputFile, line))
     {
@@ -40,11 +42,15 @@ int generarSala()
         for (auto &&simbolo : line)
         {
             sf::Sprite bloque;
+            if (simbolo == '0')
+            {
+                bloque = generarBloque(0, texturaBloques);
+            }
             if (simbolo == '1')
             {
                 bloque = generarBloque(1, texturaBloques);
             }
-            else
+            if (simbolo == '2')
             {
                 bloque = generarBloque(2, texturaBloques);
             }
@@ -52,7 +58,7 @@ int generarSala()
             temp.emplace_back(bloque);
             x++;
         }
-        mapa.emplace_back(temp);
+        mapa1.emplace_back(temp);
         y++;
     }
 
@@ -83,7 +89,7 @@ int generarSala()
     //     window.display();
     // }
 
-    return ;
+    return mapa1;
 }
 
 // #include <SFML/Graphics.hpp>
