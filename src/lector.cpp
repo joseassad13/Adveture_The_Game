@@ -5,6 +5,7 @@
 #include <cmath>
 #include <list>
 #include <Personaje.hpp>
+#include<Sala.hpp>
 #include <Pared.hpp>
 #include <Entidad.hpp>
 #include <SFML/Audio.hpp>
@@ -18,61 +19,7 @@ int main()
     float windowWidth = 960;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
 
-    // Leer el archivo línea por línea
-    std::string line;
-    list<list<sf::Sprite>> mapa1;
-    list<list<sf::Sprite>> Personaje;
-
-    // Nombre del archivo
-    std::string filename = "./assets/salas/laberinto1.txt";
-
-    // Crear un objeto ifstream
-    std::ifstream inputFile(filename);
-
-    // Verificar si el archivo se abrió correctamente
-    if (!inputFile.is_open())
-    {
-        std::cerr << "No se pudo abrir el archivo: " << filename << std::endl;
-        return 1;
-    }
-
-    sf::Texture texturaBloques;
-    if (!texturaBloques.loadFromFile("./assets/images/textura_salas.png"))
-    {
-        return -1;
-    }
-
-    int y = 0;
-    while (std::getline(inputFile, line))
-    {
-        // std::cout << line << std::endl;
-        list<sf::Sprite> temp;
-        int x = 0;
-        for (auto &&simbolo : line)
-        {
-            sf::Sprite bloque;
-            if (simbolo == '0')
-            {
-                bloque = generarBloque(0, texturaBloques);
-            }
-            if (simbolo == '1')
-            {
-                bloque = generarBloque(1, texturaBloques);
-            }
-            if (simbolo == '2')
-            {
-                bloque = generarBloque(2, texturaBloques);
-            }
-            bloque.setPosition(sf::Vector2f(x * 32, y * 32));
-            temp.emplace_back(bloque);
-            x++;
-        }
-        mapa1.emplace_back(temp);
-        y++;
-    }
-
-    // Cerrar el archivo
-    inputFile.close();
+    
     //---------------------------------abrir pestaña mapa-----------------------------------------------------------//
     while (window.isOpen())
     {
