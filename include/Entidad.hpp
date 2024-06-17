@@ -31,7 +31,7 @@ Entidad::~Entidad()
 
 Entidad::Entidad(sf::Vector2f position, sf::Color color)
 {
-    this-> shape.setSize(sf::Vector2f(69, 185));
+    this-> shape.setSize(sf::Vector2f(32, 32));
     this-> shape.setPosition(position); // Posición inicial cuadro
     this-> shape.setFillColor(color);
 
@@ -46,10 +46,20 @@ Entidad::Entidad(sf::Vector2f position, sf::Color color)
 
 void Entidad::move(float offsetX, float offsetY)
 {
+    int fila=0;
+    int columna=0;
     this-> sprite.move(offsetX, offsetY);
     this->shape.move(offsetX, offsetY);
-}
 
+    int nuevaFila = fila - offsetY;
+    int nuevaColumna = columna - offsetX;
+    if (nuevaFila <= 0 && nuevaFila < fila && nuevaColumna <= 0 && nuevaColumna < columna )
+    {
+        offsetY = nuevaFila;
+        offsetX = nuevaColumna;
+    }
+    
+}
 void Entidad::Draw(sf::RenderWindow &window)
 {
     window.draw(this->shape);

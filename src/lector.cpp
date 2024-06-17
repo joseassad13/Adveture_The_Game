@@ -1,12 +1,29 @@
 #include <iostream>
 #include <fstream>
+#include <Dragon.hpp>
 #include <SFML/Graphics.hpp>
+#include <cmath>
 #include <list>
+#include <Personaje.hpp>
 #include <Pared.hpp>
+#include <Entidad.hpp>
+#include <SFML/Audio.hpp>
+#include <Personaje.hpp>
 using namespace std;
 
+
+//------------------------------------------generador de mapas--------------------------------------------------//
 int main()
 {
+    float windowHeight = 640;
+    float windowWidth = 960;
+     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
+    
+    // Leer el archivo línea por línea
+    std::string line;
+    list<list<sf::Sprite>> mapa1;
+    list<list<sf::Sprite>> Personaje;
+    
     // Nombre del archivo
     std::string filename = "./assets/salas/laberinto1.txt";
 
@@ -20,20 +37,13 @@ int main()
         return 1;
     }
 
-    float windowHeight = 640;
-    float windowWidth = 960;
-
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
-
     sf::Texture texturaBloques;
     if (!texturaBloques.loadFromFile("./assets/images/textura_salas.png"))
     {
         return -1;
     }
 
-    // Leer el archivo línea por línea
-    std::string line;
-    list<list<sf::Sprite>> mapa1;
+
     int y = 0;
     while (std::getline(inputFile, line))
     {
@@ -65,7 +75,7 @@ int main()
 
     // Cerrar el archivo
     inputFile.close();
-
+//---------------------------------abrir pestaña mapa-----------------------------------------------------------//
     while (window.isOpen())
     {
         sf::Event event;
@@ -89,5 +99,8 @@ int main()
 
         window.display();
     }
+//-----------------------------------------------------------------------------------------------------------
+    
+       
     return 0;
 }
