@@ -1,68 +1,35 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-#include <list>
-#include <Entidad.hpp>
-#include <Personaje.hpp>
-#include <Dragon.hpp>
-#include <Sala.hpp>
-using namespace std;
+#include <iostream>
+#include <vector>
 
-int main()
-{
-    float windowHeight = 640;
-    float windowWidth = 960;
+// Representación simplificada del laberinto (puedes adaptarla según tus necesidades)
+std::vector<std::vector<char>> laberinto = {
+    {'#', '#', '#', '#', '#'},
+    {'#', ' ', ' ', ' ', '#'},
+    {'#', ' ', '#', ' ', '#'},
+    {'#', ' ', ' ', ' ', '#'},
+    {'#', '#', '#', '#', '#'}
+};
 
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "ADVENTURE");
+bool esPared(int fila, int columna) {
+    return laberinto[fila][columna] == '#';
+}
 
-    sf::Music music;
-    if (!music.openFromFile("./assets/Music/Musica_Base.mp3"))
-    {
-        // Error al cargar el archivo de música
-        return -1;
+int main() {
+    int filaActual = 1;
+    int columnaActual = 1;
+
+    // Ejemplo: mover hacia la derecha
+    int nuevaFila = filaActual;
+    int nuevaColumna = columnaActual + 1;
+
+    if (!esPared(nuevaFila, nuevaColumna)) {
+        // La próxima posición no es una pared, permite el movimiento
+        filaActual = nuevaFila;
+        columnaActual = nuevaColumna;
+        std::cout << "Personaje movido a (" << filaActual << ", " << columnaActual << ")\n";
+    } else {
+        std::cout << "¡No puedes atravesar la pared!\n";
     }
-    music.play();
 
-    list<Personaje *> entidades;
-    entidades.push_back(new Personaje());
-
-    Sala sala = Sala();
-    
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-       
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
-
-        window.clear();
-
-        for (int i = 0; i < sala.tamanioPared; i++)
-        {
-            for (int j = 0; j < sala.tamanioPared; j++)
-            {
-                window.draw(sala.paredes[i][j]->sprite);
-            }
-        }
-
-        for (auto &&e : entidades)
-        {
-            e->Update();
-        }
-
-        for (auto &&e : entidades)
-        {
-            e->Draw(window);
-        }
-        window.display();
-        if (music.getStatus() != sf::Music::Playing)
-        {
-            window.close();
-        }
-    }
+    return 0;
 }
