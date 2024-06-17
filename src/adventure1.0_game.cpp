@@ -34,6 +34,18 @@ void updateEnemyAnimation(sf::Sprite &enemySprite, sf::Clock &clock, int &frame,
 //------------------------------------------generador de mapas--------------------------------------------------//
 int main()
 {
+    sf::Music music;
+    // --------------------------- MUSICA -------------------------------
+    if (!music.openFromFile("./assets/Music/Musica_Base.mp3"))
+    {
+        // Error al cargar el archivo de música
+        return -1;
+    }
+
+    // Reproducir la música
+    music.play();
+    // --------------------------- MUSICA -------------------------------
+
     float windowHeight = 640;
     float windowWidth = 640;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
@@ -211,6 +223,10 @@ int main()
         }
         window.draw(enemySprite);
         window.display();
+         if (music.getStatus() != sf::Music::Playing)
+        {
+            window.close();
+        }
         // personaje.Update();
         // personaje.Draw(window);
         // window.display();
