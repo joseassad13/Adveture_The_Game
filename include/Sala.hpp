@@ -8,7 +8,7 @@ using namespace std;
 
 int generarSala()
 {
-    generarBloque;
+
     // Nombre del archivo
     std::string filename = "./assets/salas/laberinto.txt";
 
@@ -21,11 +21,6 @@ int generarSala()
         std::cerr << "No se pudo abrir el archivo: " << filename << std::endl;
         return 1;
     }
-
-    float windowHeight = 640;
-    float windowWidth = 960;
-
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
 
     sf::Texture texturaBloques;
     if (!texturaBloques.loadFromFile("./assets/images/textura_salas.png"))
@@ -64,31 +59,31 @@ int generarSala()
     // Cerrar el archivo
     inputFile.close();
 
-    while (window.isOpen())
-    {
-        sf::Event event;
+    // while (window.isOpen())
+    // {
+    //     sf::Event event;
 
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
+    //     while (window.pollEvent(event))
+    //     {
+    //         if (event.type == sf::Event::Closed)
+    //         {
+    //             window.close();
+    //         }
+    //     }
 
-        window.clear();
-        for (auto &&linea : mapa)
-        {
-            for (auto &&bloque : linea)
-            {
-                window.draw(bloque);
-            }
-        }
+    //     window.clear();
+    //     for (auto &&linea : mapa)
+    //     {
+    //         for (auto &&bloque : linea)
+    //         {
+    //             window.draw(bloque);
+    //         }
+    //     }
 
-        window.display();
-    }
+    //     window.display();
+    // }
 
-    return 0;
+    return ;
 }
 
 // #include <SFML/Graphics.hpp>
