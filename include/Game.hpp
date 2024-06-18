@@ -7,13 +7,13 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
-#include <Laberinto.hpp>
-#include <Player.hpp>
-#include <Enemy.hpp>
+#include "Laberinto.hpp"
+#include "Player.hpp"
+#include "Enemy.hpp"
 #include "Door.hpp"
 #include "Key.hpp"
 #include "Puntaje.hpp"
-
+#include "GameObject.hpp"
 
 class Game
 {
@@ -36,7 +36,6 @@ public:
     sf::Clock animationClock;
     bool gameStarted; // Variable para controlar si el juego ha comenzado
 
-<<<<<<< HEAD
     // Variables para la pantalla de inicio
     sf::Font font;
     sf::Text gameName;
@@ -49,12 +48,6 @@ public:
              currentFrame(0),
              laberinto("assets/Salas/laberinto1.txt"),
              gameStarted(false)
-=======
-    Game() : window(sf::VideoMode(640, 640), "Enemy Chase Player"), 
-        spacePressedLastFrame(false), 
-        currentFrame(0)
-
->>>>>>> 439e65acd9a22f456200a27f8ab0a99b1de08b2a
     {
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
@@ -129,30 +122,31 @@ public:
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (startGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-                startGame.setColor(sf::Color::Red);
-            else
-                startGame.setColor(sf::Color::White);
-
-            if (exitGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
-                exitGame.setColor(sf::Color::Red);
-            else
-                exitGame.setColor(sf::Color::White);
-
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+                return;
+            }
+
             if (event.type == sf::Event::MouseButtonPressed)
             {
-                if (startGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                if (startGame.getGlobalBounds().contains(mousePos))
                 {
                     gameStarted = true;
                 }
-                if (exitGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                else if (exitGame.getGlobalBounds().contains(mousePos))
                 {
                     window.close();
+                    return;
                 }
             }
         }
+
+        // Cambiar el color del texto según la posición del mouse
+        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        startGame.setFillColor(startGame.getGlobalBounds().contains(mousePos) ? sf::Color::Red : sf::Color::White);
+        exitGame.setFillColor(exitGame.getGlobalBounds().contains(mousePos) ? sf::Color::Red : sf::Color::White);
 
         window.clear();
         window.draw(gameName);
@@ -167,7 +161,10 @@ public:
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+                return;
+            }
         }
     }
 
@@ -180,7 +177,6 @@ public:
         }
 
         player->update();
-        enemy->checkRespawn();
         enemy->updateMovement(player->getPosition());
         enemy->updateAnimation(4, 64, 64, animationClock, currentFrame);
 
@@ -245,12 +241,9 @@ public:
 
     void render()
     {
-<<<<<<< HEAD
-=======
-
->>>>>>> 439e65acd9a22f456200a27f8ab0a99b1de08b2a
         window.clear();
-        
+        laberinto.Draw(window);
+
         window.draw(player->sprite);
         if (!player->hasSword)
         {
@@ -260,36 +253,33 @@ public:
         {
             window.draw(enemy->sprite);
         }
-        
         if (!key->collected)
         {
             window.draw(key->sprite);
         }
-        
         window.draw(door->sprite);
         puntaje->draw(window);
         window.display();
-        laberinto.Draw(window);
-        
-
     }
 };
 
 
 // #pragma once
+
 // #include <SFML/Graphics.hpp>
-// #include <GameObject.hpp>
+// #include <SFML/Audio.hpp>
 // #include <cmath>
 // #include <string>
 // #include <cstdlib>
 // #include <ctime>
 // #include <list>
-// #include <Key.hpp>
-// #include <Enemy.hpp>
-// #include <Puntaje.hpp>
-// #include <Player.hpp>
 // #include <Laberinto.hpp>
+// #include <Player.hpp>
+// #include <Enemy.hpp>
 // #include <Door.hpp>
+// #include <Key.hpp>
+// #include <Puntaje.hpp>
+// #include <GameObject.hpp>
 
 // class Game
 // {
@@ -310,17 +300,36 @@ public:
 //     bool spacePressedLastFrame;
 //     int currentFrame;
 //     sf::Clock animationClock;
+//     bool gameStarted; // Variable para controlar si el juego ha comenzado
+
+//     // Variables para la pantalla de inicio
+//     sf::Font font;
+//     sf::Text gameName;
+//     sf::Text startGame;
+//     sf::Text exitGame;
+//     sf::Music music;
 
 //     Game() : window(sf::VideoMode(640, 640), "Enemy Chase Player"),
 //              spacePressedLastFrame(false),
 //              currentFrame(0),
-//              laberinto("assets/Salas/laberinto1.txt")
+//              laberinto("assets/Salas/laberinto1.txt"),
+//              gameStarted(false)
 //     {
 //         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
 //             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
 //             !swordTexture.loadFromFile("assets/Images/arma.png") ||
 //             !doorTexture.loadFromFile("assets/Images/puerta_adventure.png") ||
 //             !keyTexture.loadFromFile("assets/Images/lanza_adventure.png"))
+//         {
+//             // Handle error
+//         }
+
+//         if (!font.loadFromFile("assets/Font/adventure-atari-2600.ttf"))
+//         {
+//             // Handle error
+//         }
+
+//         if (!music.openFromFile("assets/Music/Inicio_Final.mp3"))
 //         {
 //             // Handle error
 //         }
@@ -333,6 +342,18 @@ public:
 //         door = new Door(doorTexture, sf::Vector2f(700.f, 500.f));
 //         key = new Key(keyTexture, sf::Vector2f(550.f, 100.f));
 //         puntaje = new Puntaje();
+
+//         gameName = sf::Text("ADVENTURE_2.0", font, 40);
+//         startGame = sf::Text("Start Game", font, 20);
+//         exitGame = sf::Text("Exit Game", font, 20);
+
+//         gameName.setPosition(90.f, 100.f);
+//         gameName.setFillColor(sf::Color::Yellow);
+//         startGame.setPosition(230.f, 350.f);
+//         exitGame.setPosition(240.f, 400.f);
+
+//         music.setLoop(true);
+//         music.play();
 //     }
 
 //     ~Game()
@@ -349,13 +370,57 @@ public:
 //     {
 //         while (window.isOpen())
 //         {
-//             handleEvents();
-//             update();
-//             render();
+//             if (!gameStarted)
+//             {
+//                 handleStartScreenEvents();
+//             }
+//             else
+//             {
+//                 handleGameEvents();
+//                 update();
+//                 render();
+//             }
 //         }
 //     }
 
-//     void handleEvents()
+//     void handleStartScreenEvents()
+//     {
+//         sf::Event event;
+//         while (window.pollEvent(event))
+//         {
+//             if (startGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+//                 startGame.setColor(sf::Color::Red);
+//             else
+//                 startGame.setColor(sf::Color::White);
+
+//             if (exitGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+//                 exitGame.setColor(sf::Color::Red);
+//             else
+//                 exitGame.setColor(sf::Color::White);
+
+//             if (event.type == sf::Event::Closed)
+//                 window.close();
+//             if (event.type == sf::Event::MouseButtonPressed)
+//             {
+//                 if (startGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+//                 {
+//                     gameStarted = true;
+//                 }
+//                 if (exitGame.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+//                 {
+//                     window.close();
+//                 }
+//             }
+//         }
+
+//         window.clear();
+//         window.draw(gameName);
+//         window.draw(startGame);
+//         window.draw(exitGame);
+//         window.display();
+//     }
+
+//     void handleGameEvents()
 //     {
 //         sf::Event event;
 //         while (window.pollEvent(event))
@@ -367,28 +432,15 @@ public:
 
 //     void update()
 //     {
-//         // sf::Vector2f playerOldPos = player->getPosition();
-//         // sf::Vector2f enemyOldPos = enemy->getPosition();
+//         // Actualizaciones del juego solo cuando el juego ha comenzado
+//         if (!gameStarted)
+//         {
+//             return;
+//         }
 
 //         player->update();
-//         // // if (laberinto.checkCollision(player->getBoundingBox()))
-//         // // {
-//         // //     player->setPosition(playerOldPos);
-//         // // }
-
-//         // // if (enemy->alive)
-//         // // {
-//             enemy->updateMovement(player->getPosition());
-//         // //     if (laberinto.checkCollision(enemy->getBoundingBox()))
-//         // //     {
-//         // //         enemy->setPosition(enemyOldPos);
-//         // //     }
-//             enemy->updateAnimation(4, 64, 64, animationClock, currentFrame);
-//         // }
-//         // else
-//         // {
-//             enemy->checkRespawn();
-//         // }
+//         enemy->updateMovement(player->getPosition());
+//         enemy->updateAnimation(4, 64, 64, animationClock, currentFrame);
 
 //         if (player->hasSword)
 //         {
@@ -472,3 +524,4 @@ public:
 //         window.display();
 //     }
 // };
+
