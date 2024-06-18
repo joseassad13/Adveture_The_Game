@@ -5,7 +5,7 @@
 #include <cmath>
 #include <list>
 #include <Personaje.hpp>
-#include<Sala.hpp>
+#include <Sala.hpp>
 #include <Pared.hpp>
 #include <Entidad.hpp>
 #include <SFML/Audio.hpp>
