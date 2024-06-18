@@ -1,5 +1,5 @@
 #pragma once
-#include <Jugador.hpp>
+#include <Player.hpp>
 #include <SFML/Graphics.hpp>
 #include <math.h>
 
