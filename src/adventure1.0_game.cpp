@@ -1,14 +1,10 @@
 #include <iostream>
 #include <fstream>
-#include <Dragon.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <list>
-#include <Personaje.hpp>
-#include <Pared.hpp>
-#include <Entidad.hpp>
 #include <SFML/Audio.hpp>
-#include <Personaje.hpp>
+#include <Laberinto.hpp>
 using namespace std;
 
 // Function to calculate the direction vector from the enemy to the player
@@ -49,7 +45,8 @@ int main()
     float windowHeight = 640;
     float windowWidth = 640;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
-    Personaje personaje;
+    //Personaje personaje;
+    Laberinto laberinto();
 
     // Leer el archivo línea por línea
     std::string line;
@@ -132,15 +129,15 @@ int main()
             sf::Sprite bloque;
             if (simbolo == '0')
             {
-                bloque = generarBloque(0, texturaBloques);
+                bloque = laberinto.generarBloque(0, texturaBloques);
             }
             if (simbolo == '1')
             {
-                bloque = generarBloque(1, texturaBloques);
+                bloque = laberinto.generarBloque(1, texturaBloques);
             }
             if (simbolo == '2')
             {
-                bloque = generarBloque(2, texturaBloques);
+                bloque = laberinto.generarBloque(2, texturaBloques);
             }
             bloque.setPosition(sf::Vector2f(x * 32, y * 32));
             temp.emplace_back(bloque);

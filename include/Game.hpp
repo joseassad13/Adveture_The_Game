@@ -37,7 +37,7 @@ public:
     Game() : window(sf::VideoMode(640, 640), "Enemy Chase Player"), 
         spacePressedLastFrame(false), 
         currentFrame(0),
-        laberinto("./assets/salas/laberinto1.txt")
+        laberinto("assets/Salas/laberinto1.txt")
     {
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||

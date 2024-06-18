@@ -4,12 +4,15 @@
 #include <cmath>
 #include <list>
 #include <Sala.hpp>
+#include <Laberinto.hpp>
+
 
 using namespace std;
 
 //------------------------------------------generador de mapas--------------------------------------------------//
 int main()
 {
+    Laberinto laberinto;
     float windowHeight = 640;
     float windowWidth = 960;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
