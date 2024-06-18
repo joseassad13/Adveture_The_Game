@@ -36,8 +36,8 @@ public:
 
     Game() : window(sf::VideoMode(640, 640), "Enemy Chase Player"), 
         spacePressedLastFrame(false), 
-        currentFrame(0),
-        laberinto("assets/Salas/laberinto1.txt")
+        currentFrame(0)
+
     {
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
@@ -163,11 +163,9 @@ public:
 
     void render()
     {
-       
 
         window.clear();
-        laberinto.Draw(window);
-
+        
         window.draw(player->sprite);
         if (!player->hasSword)
         {
@@ -177,12 +175,17 @@ public:
         {
             window.draw(enemy->sprite);
         }
+        
         if (!key->collected)
         {
             window.draw(key->sprite);
         }
+        
         window.draw(door->sprite);
         puntaje->draw(window);
         window.display();
+        laberinto.Draw(window);
+        
+
     }
 };
