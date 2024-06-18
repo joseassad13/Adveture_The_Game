@@ -4,13 +4,10 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
-#include <Personaje.hpp>
 #include <Pared.hpp>
 #include <Entidad.hpp>
 #include <Dragon.hpp>
 #include <SFML/Audio.hpp>
-#include <Personaje.hpp>
-#include <Objeto.hpp>
 #include <Key.hpp>
 #include <Game.hpp>
 #include <Enemy.hpp>
@@ -18,140 +15,140 @@
 #include <Puntaje.hpp>
 #include <Player.hpp>
 
-class GameObject
-{
-public:
-    sf::Sprite sprite;
+// class GameObject
+// {
+// public:
+//     sf::Sprite sprite;
 
-    GameObject(const sf::Texture &texture, const sf::Vector2f &position, const sf::Vector2f &scale = sf::Vector2f(1.f, 1.f))
-    {
-        sprite.setTexture(texture);
-        sprite.setPosition(position);
-        sprite.setScale(scale);
-    }
+//     GameObject(const sf::Texture &texture, const sf::Vector2f &position, const sf::Vector2f &scale = sf::Vector2f(1.f, 1.f))
+//     {
+//         sprite.setTexture(texture);
+//         sprite.setPosition(position);
+//         sprite.setScale(scale);
+//     }
 
-    void setPosition(const sf::Vector2f &position)
-    {
-        sprite.setPosition(position);
-    }
+//     void setPosition(const sf::Vector2f &position)
+//     {
+//         sprite.setPosition(position);
+//     }
 
-    sf::Vector2f getPosition() const
-    {
-        return sprite.getPosition();
-    }
+//     sf::Vector2f getPosition() const
+//     {
+//         return sprite.getPosition();
+//     }
 
-    void move(const sf::Vector2f &offset)
-    {
-        sprite.move(offset);
-    }
-};
+//     void move(const sf::Vector2f &offset)
+//     {
+//         sprite.move(offset);
+//     }
+// };
 
-class Player : public GameObject
-{
-public:
-    float moveSpeed;
-    bool hasSword;
-    bool hasKey;
-    sf::Vector2f swordOffset;
+// class Player : public GameObject
+// {
+// public:
+//     float moveSpeed;
+//     bool hasSword;
+//     bool hasKey;
+//     sf::Vector2f swordOffset;
 
-    Player(const sf::Texture &texture, const sf::Vector2f &position, float speed)
-        : GameObject(texture, position), moveSpeed(speed), hasSword(false), hasKey(false), swordOffset(50.f, 0.f) {}
+//     Player(const sf::Texture &texture, const sf::Vector2f &position, float speed)
+//         : GameObject(texture, position), moveSpeed(speed), hasSword(false), hasKey(false), swordOffset(50.f, 0.f) {}
 
-    void update()
-    {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sprite.getPosition().x >= 1){
-            sprite.move(-moveSpeed, 0.f);
-            if (/* condition */)
-            {
-                /* code */
-            }
+//     void update()
+//     {
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sprite.getPosition().x >= 1){
+//             sprite.move(-moveSpeed, 0.f);
+//             if (/* condition */)
+//             {
+//                 /* code */
+//             }
             
-        }
+//         }
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sprite.getPosition().x < 640 - sprite.getTexture()->getSize().x)
-            sprite.move(moveSpeed, 0.f);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sprite.getPosition().y >= 1)
-            sprite.move(0.f, -moveSpeed);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sprite.getPosition().y < 640 - sprite.getTexture()->getSize().y)
-            sprite.move(0.f, moveSpeed);
-    }
-};
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sprite.getPosition().x < 640 - sprite.getTexture()->getSize().x)
+//             sprite.move(moveSpeed, 0.f);
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sprite.getPosition().y >= 1)
+//             sprite.move(0.f, -moveSpeed);
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sprite.getPosition().y < 640 - sprite.getTexture()->getSize().y)
+//             sprite.move(0.f, moveSpeed);
+//     }
+// };
 
-class Enemy : public GameObject
-{
-public:
-    float speed;
-    bool alive;
-    sf::Clock respawnClock;
+// class Enemy : public GameObject
+// {
+// public:
+//     float speed;
+//     bool alive;
+//     sf::Clock respawnClock;
 
-    Enemy(const sf::Texture &texture, const sf::Vector2f &position, float speed)
-        : GameObject(texture, position, sf::Vector2f(0.3f, 0.3f)), speed(speed), alive(true)
-    {
-        sprite.setTextureRect(sf::IntRect(64, 64, 64, 64));
-    }
+//     Enemy(const sf::Texture &texture, const sf::Vector2f &position, float speed)
+//         : GameObject(texture, position, sf::Vector2f(0.3f, 0.3f)), speed(speed), alive(true)
+//     {
+//         sprite.setTextureRect(sf::IntRect(64, 64, 64, 64));
+//     }
 
-    void updateAnimation(int frameCount, int frameWidth, int frameHeight, sf::Clock &animationClock, int &currentFrame)
-    {
-        if (animationClock.getElapsedTime().asSeconds() > 0.15f)
-        {
-            currentFrame = (currentFrame + 1) % 2;
-            sprite.setTextureRect(sf::IntRect((currentFrame * 69), 0, 69, 185));
-            animationClock.restart();
-        }
-        // (currentFrame * frameWidth, 45, frameWidth, frameHeight)
-    }
+//     void updateAnimation(int frameCount, int frameWidth, int frameHeight, sf::Clock &animationClock, int &currentFrame)
+//     {
+//         if (animationClock.getElapsedTime().asSeconds() > 0.15f)
+//         {
+//             currentFrame = (currentFrame + 1) % 2;
+//             sprite.setTextureRect(sf::IntRect((currentFrame * 69), 0, 69, 185));
+//             animationClock.restart();
+//         }
+//         // (currentFrame * frameWidth, 45, frameWidth, frameHeight)
+//     }
 
-    void updateMovement(const sf::Vector2f &targetPosition)
-    {
-        if (alive)
-        {
-            sf::Vector2f direction = targetPosition - sprite.getPosition();
-            float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-            if (length != 0)
-                direction /= length;
-            sprite.move(direction * speed);
-        }
-    }
+//     void updateMovement(const sf::Vector2f &targetPosition)
+//     {
+//         if (alive)
+//         {
+//             sf::Vector2f direction = targetPosition - sprite.getPosition();
+//             float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+//             if (length != 0)
+//                 direction /= length;
+//             sprite.move(direction * speed);
+//         }
+//     }
 
-    void checkRespawn()
-    {
-        if (!alive && respawnClock.getElapsedTime().asSeconds() > 3.f)
-        {
-            alive = true;
-            sprite.setPosition(100.f, 100.f);
-        }
-    }
+//     void checkRespawn()
+//     {
+//         if (!alive && respawnClock.getElapsedTime().asSeconds() > 3.f)
+//         {
+//             alive = true;
+//             sprite.setPosition(100.f, 100.f);
+//         }
+//     }
 
-    void kill()
-    {
-        alive = false;
-        respawnClock.restart();
-    }
-};
+//     void kill()
+//     {
+//         alive = false;
+//         respawnClock.restart();
+//     }
+// };
 
-class Door : public GameObject
-{
-public:
-    Door(const sf::Texture &texture, const sf::Vector2f &position)
-        : GameObject(texture, position) {}
-};
+// class Door : public GameObject
+// {
+// public:
+//     Door(const sf::Texture &texture, const sf::Vector2f &position)
+//         : GameObject(texture, position) {}
+// };
 
-class Key : public GameObject
-{
-public:
-    bool collected;
+// class Key : public GameObject
+// {
+// public:
+//     bool collected;
 
-    Key(const sf::Texture &texture, const sf::Vector2f &position)
-        : GameObject(texture, position), collected(false) {}
+//     Key(const sf::Texture &texture, const sf::Vector2f &position)
+//         : GameObject(texture, position), collected(false) {}
 
-    void respawn()
-    {
-        float x = static_cast<float>(rand() % (630 - static_cast<int>(sprite.getTexture()->getSize().x)));
-        float y = static_cast<float>(rand() % (630 - static_cast<int>(sprite.getTexture()->getSize().y)));
-        sprite.setPosition(x, y);
-        collected = false;
-    }
-};
+//     void respawn()
+//     {
+//         float x = static_cast<float>(rand() % (630 - static_cast<int>(sprite.getTexture()->getSize().x)));
+//         float y = static_cast<float>(rand() % (630 - static_cast<int>(sprite.getTexture()->getSize().y)));
+//         sprite.setPosition(x, y);
+//         collected = false;
+//     }
+// };
 
 // class Scoreboard
 // {

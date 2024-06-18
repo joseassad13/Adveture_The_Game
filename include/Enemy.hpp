@@ -1,9 +1,25 @@
 #pragma once
-#include <Objeto.hpp>
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+#include <list>
+#include <Personaje.hpp>
+#include <Pared.hpp>
+#include <Entidad.hpp>
+#include <Dragon.hpp>
+#include <GameObject.hpp>
+#include <SFML/Audio.hpp>
+#include <Personaje.hpp>
+#include <Key.hpp>
+#include <Game.hpp>
+#include <Enemy.hpp>
+#include <Puntaje.hpp>
+#include <Player.hpp>
 
-
-
-class Enemy : public Objeto
+class Enemy : public GameObject
 {
 public:
     float speed;
@@ -11,19 +27,20 @@ public:
     sf::Clock respawnClock;
 
     Enemy(const sf::Texture &texture, const sf::Vector2f &position, float speed)
-        : objetoJuego(texture, position, sf::Vector2f(0.3f, 0.3f)), speed(speed), alive(true)
+        : GameObject(texture, position, sf::Vector2f(0.3f, 0.3f)), speed(speed), alive(true)
     {
-        sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
+        sprite.setTextureRect(sf::IntRect(64, 64, 64, 64));
     }
 
     void updateAnimation(int frameCount, int frameWidth, int frameHeight, sf::Clock &animationClock, int &currentFrame)
     {
-        if (animationClock.getElapsedTime().asSeconds() > 0.2f)
+        if (animationClock.getElapsedTime().asSeconds() > 0.15f)
         {
-            currentFrame = (currentFrame + 1) % frameCount;
-            sprite.setTextureRect(sf::IntRect(currentFrame * frameWidth, 0, frameWidth, frameHeight));
+            currentFrame = (currentFrame + 1) % 2;
+            sprite.setTextureRect(sf::IntRect((currentFrame * 69), 0, 69, 185));
             animationClock.restart();
         }
+        // (currentFrame * frameWidth, 45, frameWidth, frameHeight)
     }
 
     void updateMovement(const sf::Vector2f &targetPosition)

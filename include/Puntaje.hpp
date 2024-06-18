@@ -1,9 +1,21 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
-#include <math.h>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+#include <list>
+#include <Pared.hpp>
+#include <Entidad.hpp>
+#include <Dragon.hpp>
+#include <SFML/Audio.hpp>
+#include <Key.hpp>
+#include <Game.hpp>
+#include <Enemy.hpp>
+#include <Door.hpp>
+#include <Player.hpp>
 
-
-cclass Scoreboard
+class Scoreboard
 {
 public:
     sf::Font font;
@@ -16,7 +28,7 @@ public:
     {
         if (!font.loadFromFile("assets/Font/adventure-atari-2600.ttf"))
         {
-            Handle error
+        //    handle error
         }
 
         score = 0;
