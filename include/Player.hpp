@@ -1,19 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <cmath>
-#include <string>
-#include <cstdlib>
-#include <ctime>
-#include <list>
-#include <Pared.hpp>
-#include <Entidad.hpp>
-#include <Dragon.hpp>
 #include <GameObject.hpp>
-#include <SFML/Audio.hpp>
-#include <Key.hpp>
-#include <Game.hpp>
-#include <Enemy.hpp>
-#include <Puntaje.hpp>
+
 
 
 class Player : public GameObject

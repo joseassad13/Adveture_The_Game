@@ -7,15 +7,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
-#include <Pared.hpp>
-#include <Entidad.hpp>
-#include <Dragon.hpp>
-#include <SFML/Audio.hpp>
 #include <Key.hpp>
 #include <Enemy.hpp>
 #include <Puntaje.hpp>
 #include <Player.hpp>
 #include <Laberinto.hpp>
+#include <Door.hpp>
 
 class Game
 {
@@ -31,7 +28,7 @@ public:
     GameObject *sword;
     Door *door;
     Key *key;
-    Scoreboard *scoreboard;
+    Puntaje *puntaje;
     Laberinto laberinto;
     bool spacePressedLastFrame;
     int currentFrame;
@@ -58,7 +55,7 @@ public:
         sword = new GameObject(swordTexture, sf::Vector2f(200.f, 200.f));
         door = new Door(doorTexture, sf::Vector2f(700.f, 500.f));
         key = new Key(keyTexture, sf::Vector2f(600.f, 100.f));
-        scoreboard = new Scoreboard();
+        puntaje = new Puntaje();
     }
 
     ~Game()
@@ -68,7 +65,7 @@ public:
         delete sword;
         delete door;
         delete key;
-        delete scoreboard;
+        delete puntaje;
     }
 
     void run()
@@ -136,7 +133,7 @@ public:
             {
                 player->hasKey = false;
                 key->respawn();
-                scoreboard->addScore(10);
+                puntaje->addScore(10);
             }
         }
 
@@ -161,7 +158,7 @@ public:
         }
         spacePressedLastFrame = spacePressedThisFrame;
 
-        scoreboard->updateText();
+        puntaje->updateText();
     }
 
     void render()
@@ -185,7 +182,7 @@ public:
             window.draw(key->sprite);
         }
         window.draw(door->sprite);
-        scoreboard->draw(window);
+        puntaje->draw(window);
         window.display();
     }
 };

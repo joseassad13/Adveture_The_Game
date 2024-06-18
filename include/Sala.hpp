@@ -3,15 +3,16 @@
 #include <fstream>
 #include <SFML/Graphics.hpp>
 #include <list>
-#include <Pared.hpp>
+#include <Laberinto.hpp>
 using namespace std;
 
 sf::Sprite generarSala()
 {
+    Laberinto laberinto;
     sf::Sprite mapa1;
-// Leer el archivo línea por línea
+    // Leer el archivo línea por línea
     std::string line;
-    list<list<sf::Sprite>> mapa1;
+    list<list<sf::Sprite>> mapa12;
     list<list<sf::Sprite>> Personaje;
 
     // Nombre del archivo
@@ -24,13 +25,12 @@ sf::Sprite generarSala()
     if (!inputFile.is_open())
     {
         std::cerr << "No se pudo abrir el archivo: " << filename << std::endl;
-        return 1;
     }
 
     sf::Texture texturaBloques;
     if (!texturaBloques.loadFromFile("./assets/images/textura_salas.png"))
     {
-        return -1;
+        std::cerr << "No se pudo abrir el archivo: " << filename << std::endl;
     }
 
     int y = 0;
@@ -44,21 +44,21 @@ sf::Sprite generarSala()
             sf::Sprite bloque;
             if (simbolo == '0')
             {
-                bloque = generarBloque(0, texturaBloques);
+                bloque = laberinto.generarBloque(0, texturaBloques);
             }
             if (simbolo == '1')
             {
-                bloque = generarBloque(1, texturaBloques);
+                bloque = laberinto.generarBloque(1, texturaBloques);
             }
             if (simbolo == '2')
             {
-                bloque = generarBloque(2, texturaBloques);
+                bloque = laberinto.generarBloque(2, texturaBloques);
             }
             bloque.setPosition(sf::Vector2f(x * 32, y * 32));
             temp.emplace_back(bloque);
             x++;
         }
-        mapa1.emplace_back(temp);
+        mapa12.emplace_back(temp);
         y++;
     }
 

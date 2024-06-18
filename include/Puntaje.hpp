@@ -1,21 +1,7 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
-#include <cmath>
-#include <string>
-#include <cstdlib>
-#include <ctime>
-#include <list>
-#include <Pared.hpp>
-#include <Entidad.hpp>
-#include <Dragon.hpp>
-#include <SFML/Audio.hpp>
-#include <Key.hpp>
-#include <Game.hpp>
-#include <Enemy.hpp>
-#include <Door.hpp>
-#include <Player.hpp>
 
-class Scoreboard
+class Puntaje
 {
 public:
     sf::Font font;
@@ -24,7 +10,7 @@ public:
     int score;
     sf::Clock gameClock;
 
-    Scoreboard()
+    Puntaje()
     {
         if (!font.loadFromFile("assets/Font/adventure-atari-2600.ttf"))
         {
