@@ -27,7 +27,6 @@ public:
         this->shape.setPosition(position); // Posición inicial cuadro
         this ->shape.setScale(sf::Vector2(2.5f,2.5f));
         this->shape.setFillColor(color);
-        this->shape.setScale(sf::Vector2f(.5f, .5f));
 
         // Cargar la imagen desde un archivo
         std::string file = "assets/Images/dragon_adventure_actions2.png";
@@ -45,7 +44,11 @@ public:
 
         // Que haga esto nuevo
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+          {
             Entidad::move(Entidad::velocidad * -1, 0);
+            
+          }  
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             Entidad::move(Entidad::velocidad, 0);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
