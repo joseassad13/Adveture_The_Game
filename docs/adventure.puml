@@ -1,35 +1,31 @@
 @startuml Adventure
 
-class Juego
+class Game
 {
     Jugar()
     -tiempoJugado
 }
-class Jugador
+class Player
 {
     Controlar()
     -puntaje
     -intento
 }
-class Personaje 
-{
-    Agarrar()
-    Soltar()
-    Moverse()
-    
-}
+
 class Objeto{
     -color
     -tamaño
 }
-class Llave
+class Key
 {
     Acceder()
    
 }
-class Trofeo
-{
-    TerminarJuego()
+class Puntaje{
+    Puntaje()
+    updateText()
+    addScore()
+    draw()
 }
 class Lanza 
 {
@@ -45,7 +41,7 @@ class Sala
     -suelo
     -items
 }
-class Puerta 
+class Door 
 {
     DejarPasar()
     -tamaño 
@@ -61,7 +57,7 @@ class Pared
     -tamaño
 }
 
-class Dragon
+class Enemy
 {
     Atacar()
     Perseguir()
@@ -77,23 +73,21 @@ class Entidad{
 
 }
 
-Jugador "1" o-- "1" Personaje
-Juego *-- "1" Jugador
-Juego o-- "1" Personaje
+Game *-- "1" Player
 
-Llave -|> Objeto
-Trofeo-|> Objeto
+Key -|> Objeto
 Lanza -|> Objeto
 
-Personaje "1" o-- "1" Objeto
+Player "1" o-- "1" Objeto
 
-Juego "1" *-- "1"Laberinto
+Game "1" *-- "1"Laberinto
+Game "1" *-- "1" Puntaje
 Laberinto "1" *-- "*"Sala
-Jugador "1" o--"1"Sala
-Sala "1"*-- "*" Puerta
-Sala "1" *-- "*" Pared 
+Player "1" o--"1"Sala
+Sala "1" *-- "1" Door 
+Sala "1" *-- "*" Pared
 
-Personaje -|> Entidad
-Dragon -|> Entidad
+Player -|> Entidad
+Enemy -|> Entidad
 
 @enduml
