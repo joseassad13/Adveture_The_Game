@@ -1,19 +1,5 @@
-#include <SFML/Graphics.hpp>
-#include <cmath>
-#include <string>
-#include <cstdlib>
-#include <ctime>
-#include <list>
-#include <Pared.hpp>
-#include <Entidad.hpp>
-#include <Dragon.hpp>
-#include <SFML/Audio.hpp>
-#include <Key.hpp>
 #include <Game.hpp>
-#include <Enemy.hpp>
-#include <Door.hpp>
-#include <Puntaje.hpp>
-#include <Player.hpp>
+
 
 // class GameObject
 // {
