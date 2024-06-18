@@ -3,7 +3,6 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-<<<<<<< HEAD
 #include <list>
 #include <Personaje.hpp>
 #include <Pared.hpp>
@@ -408,6 +407,8 @@ public:
                 window.draw(bloque);
             }
         }
+    }
+}
 =======
 // #include <Objeto.hpp>
 // #include <Key.hpp>
@@ -744,7 +745,6 @@ public:
     void render()
     {
         window.clear();
->>>>>>> e2318349070ee57bd6bcf47f92dd86d95449d82e
         window.draw(player->sprite);
         if (!player->hasSword)
         {
