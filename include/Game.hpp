@@ -36,6 +36,7 @@ public:
     sf::Clock animationClock;
     bool gameStarted; // Variable para controlar si el juego ha comenzado
 
+<<<<<<< HEAD
     // Variables para la pantalla de inicio
     sf::Font font;
     sf::Text gameName;
@@ -48,6 +49,12 @@ public:
              currentFrame(0),
              laberinto("assets/Salas/laberinto1.txt"),
              gameStarted(false)
+=======
+    Game() : window(sf::VideoMode(640, 640), "Enemy Chase Player"), 
+        spacePressedLastFrame(false), 
+        currentFrame(0)
+
+>>>>>>> 439e65acd9a22f456200a27f8ab0a99b1de08b2a
     {
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
@@ -238,9 +245,12 @@ public:
 
     void render()
     {
-        window.clear();
-        laberinto.Draw(window);
+<<<<<<< HEAD
+=======
 
+>>>>>>> 439e65acd9a22f456200a27f8ab0a99b1de08b2a
+        window.clear();
+        
         window.draw(player->sprite);
         if (!player->hasSword)
         {
@@ -250,13 +260,18 @@ public:
         {
             window.draw(enemy->sprite);
         }
+        
         if (!key->collected)
         {
             window.draw(key->sprite);
         }
+        
         window.draw(door->sprite);
         puntaje->draw(window);
         window.display();
+        laberinto.Draw(window);
+        
+
     }
 };
 
