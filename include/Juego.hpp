@@ -1,6 +1,7 @@
 #pragma once
 #include <Jugador.hpp>
 #include <SFML/Graphics.hpp>
+#include <math.h>
 
 class Juego
 {
@@ -14,7 +15,7 @@ private:
             dir /= length;
         return dir;
     }
-    sf::CircleShape player(10.f);
+    sf::CircleShape player(radioEntidad);
     sf::CircleShape enemy(10.f);
     sf::Font font;
     sf::Event event;
