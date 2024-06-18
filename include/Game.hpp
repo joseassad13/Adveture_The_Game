@@ -15,6 +15,7 @@
 #include <Enemy.hpp>
 #include <Puntaje.hpp>
 #include <Player.hpp>
+#include <Laberinto.hpp>
 
 class Game
 {
@@ -31,12 +32,15 @@ public:
     Door *door;
     Key *key;
     Scoreboard *scoreboard;
+    Laberinto laberinto;
     bool spacePressedLastFrame;
     int currentFrame;
     sf::Clock animationClock;
 
-    Game()
-        : window(sf::VideoMode(640, 640), "Enemy Chase Player"), spacePressedLastFrame(false), currentFrame(0)
+    Game() : window(sf::VideoMode(640, 640), "Enemy Chase Player"), 
+        spacePressedLastFrame(false), 
+        currentFrame(0),
+        laberinto("./assets/salas/laberinto1.txt")
     {
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
@@ -162,66 +166,11 @@ public:
 
     void render()
     {
-        std::string line;
-        list<list<sf::Sprite>> mapa1;
-
-        // Nombre del archivo
-        std::string filename = "./assets/salas/laberinto1.txt";
-
-        // Crear un objeto ifstream
-        std::ifstream inputFile(filename);
-
-        // Verificar si el archivo se abrió correctamente
-        if (!inputFile.is_open())
-        {
-            std::cerr << "No se pudo abrir el archivo: " << filename << std::endl;
-        }
-
-        sf::Texture texturaBloques;
-        if (!texturaBloques.loadFromFile("./assets/images/textura_salas.png"))
-        {
-        }
-
-        int y = 0;
-        while (std::getline(inputFile, line))
-        {
-            // std::cout << line << std::endl;
-            list<sf::Sprite> temp;
-            int x = 0;
-            for (auto &&simbolo : line)
-            {
-                sf::Sprite bloque;
-                if (simbolo == '0')
-                {
-                    bloque = generarBloque(0, texturaBloques);
-                }
-                if (simbolo == '1')
-                {
-                    bloque = generarBloque(1, texturaBloques);
-                }
-                if (simbolo == '2')
-                {
-                    bloque = generarBloque(2, texturaBloques);
-                }
-                bloque.setPosition(sf::Vector2f(x * 32, y * 32));
-                temp.emplace_back(bloque);
-                x++;
-            }
-            mapa1.emplace_back(temp);
-            y++;
-        }
-
-        // Cerrar el archivo
-        inputFile.close();
+       
 
         window.clear();
-        for (auto &&linea : mapa1)
-        {
-            for (auto &&bloque : linea)
-            {
-                window.draw(bloque);
-            }
-        }
+        laberinto.Draw(window);
+
         window.draw(player->sprite);
         if (!player->hasSword)
         {
