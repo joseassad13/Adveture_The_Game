@@ -10,10 +10,21 @@ using namespace std;
 // Function to calculate the direction vector from the enemy to the player
 sf::Vector2f calculateDirection(const sf::Vector2f &enemyPos, const sf::Vector2f &playerPos)
 {
-    sf::Vector2f dir = playerPos - enemyPos;
-    float length = std::sqrt(dir.x * dir.x + dir.y * dir.y);
-    if (length != 0)
-        dir /= length;
+    sf::Vector2f dir;
+    float deltaX = playerPos.x - enemyPos.x;
+    float deltaY = playerPos.y - enemyPos.y;
+
+    // Move only horizontally or vertically
+    if (std::abs(deltaX) > std::abs(deltaY))
+    {
+        dir.x = (deltaX > 0) ? 1.f : -1.f;
+        dir.y = 0;
+    }
+    else
+    {
+        dir.x = 0;
+        dir.y = (deltaY > 0) ? 1.f : -1.f;
+    }
     return dir;
 }
 
@@ -39,14 +50,15 @@ int main()
     }
 
     // Reproducir la música
+    music.setLoop(true); // Reproducir en bucle
     music.play();
     // --------------------------- MUSICA -------------------------------
 
     float windowHeight = 640;
     float windowWidth = 640;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
-    //Personaje personaje;
-    Laberinto laberinto();
+    // Personaje personaje;
+    Laberinto *laberinto;
 
     // Leer el archivo línea por línea
     std::string line;
@@ -129,15 +141,15 @@ int main()
             sf::Sprite bloque;
             if (simbolo == '0')
             {
-                bloque = laberinto.generarBloque(0, texturaBloques);
+                bloque = laberinto->generarBloque(0, texturaBloques);
             }
             if (simbolo == '1')
             {
-                bloque = laberinto.generarBloque(1, texturaBloques);
+                bloque = laberinto->generarBloque(1, texturaBloques);
             }
             if (simbolo == '2')
             {
-                bloque = laberinto.generarBloque(2, texturaBloques);
+                bloque = laberinto->generarBloque(2, texturaBloques);
             }
             bloque.setPosition(sf::Vector2f(x * 32, y * 32));
             temp.emplace_back(bloque);
@@ -162,14 +174,27 @@ int main()
             }
         }
         // -----------------------------------------persecucion-----------------------------------------------------------------//
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && playerSprite.getPosition().x > 0)
+        bool moveLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+        bool moveRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+        bool moveUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+        bool moveDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+
+        if (moveLeft && playerSprite.getPosition().x > 0)
+        {
             playerSprite.move(-moveSpeed, 0.f);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && playerSprite.getPosition().x < window.getSize().x - playerTexture.getSize().x)
+        }
+        else if (moveRight && playerSprite.getPosition().x < window.getSize().x - playerTexture.getSize().x)
+        {
             playerSprite.move(moveSpeed, 0.f);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && playerSprite.getPosition().y > 0)
+        }
+        else if (moveUp && playerSprite.getPosition().y > 0)
+        {
             playerSprite.move(0.f, -moveSpeed);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && playerSprite.getPosition().y < window.getSize().y - playerTexture.getSize().y)
+        }
+        else if (moveDown && playerSprite.getPosition().y < window.getSize().y - playerTexture.getSize().y)
+        {
             playerSprite.move(0.f, moveSpeed);
+        }
 
         // Enemy chases player with speed limit
         sf::Vector2f direction = calculateDirection(enemySprite.getPosition(), playerSprite.getPosition());
@@ -220,7 +245,7 @@ int main()
         }
         window.draw(enemySprite);
         window.display();
-         if (music.getStatus() != sf::Music::Playing)
+        if (music.getStatus() != sf::Music::Playing)
         {
             window.close();
         }

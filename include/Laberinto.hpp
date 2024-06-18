@@ -12,6 +12,7 @@ class Laberinto
 private:
     int cantidadSalas;
     list<list<sf::Sprite>> mapa1;
+    sf::Texture texturaBloques;
 
 public:
     Laberinto(std::string filename)
@@ -27,15 +28,14 @@ public:
             std::cerr << "No se pudo abrir el archivo: " << filename << std::endl;
         }
 
-        sf::Texture texturaBloques;
         if (!texturaBloques.loadFromFile("./assets/images/textura_salas.png"))
         {
+            std::cerr << "No se pudo cargar la textura" << std::endl;
         }
 
         int y = 0;
         while (std::getline(inputFile, line))
         {
-            // std::cout << line << std::endl;
             list<sf::Sprite> temp;
             int x = 0;
             for (auto &&simbolo : line)
@@ -45,11 +45,11 @@ public:
                 {
                     bloque = generarBloque(0, texturaBloques);
                 }
-                if (simbolo == '1')
+                else if (simbolo == '1')
                 {
                     bloque = generarBloque(1, texturaBloques);
                 }
-                if (simbolo == '2')
+                else if (simbolo == '2')
                 {
                     bloque = generarBloque(2, texturaBloques);
                 }
@@ -64,34 +64,32 @@ public:
         // Cerrar el archivo
         inputFile.close();
     }
+
     sf::Sprite generarBloque(int tipo, sf::Texture &texture)
     {
         sf::Sprite bloque;
-
-        int bloquePosX;
-        int bloquePosY;
+        int bloquePosX = 0;
+        int bloquePosY = 0;
 
         switch (tipo)
         {
-        case 0:
+        case 0: // Open space
             bloquePosX = 1;
             bloquePosY = 2;
             break;
-        case 1:
+        case 1: // Wall
             bloquePosX = 4;
             bloquePosY = 1;
             break;
-        case 2:
+        case 2: // Some other type
             bloquePosX = 0;
             bloquePosY = 3;
             break;
-
         default:
             break;
         }
 
         bloque = sf::Sprite(texture);
-
         int bloqueTamaño = 32;
         bloque.setTextureRect(
             sf::IntRect(
@@ -102,8 +100,11 @@ public:
 
         return bloque;
     }
+
     ~Laberinto() {}
-    void Draw(sf::RenderWindow& window){
+
+    void Draw(sf::RenderWindow &window)
+    {
         for (auto &&linea : mapa1)
         {
             for (auto &&bloque : linea)
@@ -111,5 +112,20 @@ public:
                 window.draw(bloque);
             }
         }
+    }
+
+    bool checkCollision(const sf::FloatRect &boundingBox)
+    {
+        for (auto &&linea : mapa1)
+        {
+            for (auto &&bloque : linea)
+            {
+                if (boundingBox.intersects(bloque.getGlobalBounds()))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 };

@@ -38,7 +38,13 @@ public:
             moved = true;
         }
     }
+
+    sf::FloatRect getBoundingBox() const
+    {
+        return sprite.getGlobalBounds();
+    }
 };
+
 
 
 

@@ -68,7 +68,13 @@ public:
         alive = false;
         respawnClock.restart();
     }
+
+    sf::FloatRect getBoundingBox() const
+    {
+        return sprite.getGlobalBounds();
+    }
 };
+
 
 
 

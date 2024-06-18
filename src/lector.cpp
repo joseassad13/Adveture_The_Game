@@ -14,7 +14,7 @@ int main()
 {
     Laberinto laberinto;
     float windowHeight = 640;
-    float windowWidth = 960;
+    float windowWidth = 640;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
 
     

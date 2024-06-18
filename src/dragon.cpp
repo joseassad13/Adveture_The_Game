@@ -3,7 +3,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(960, 640), "Dragon");
+    sf::RenderWindow window(sf::VideoMode(640, 640), "Dragon");
     // window.setFramerateLimit(60);
     Dragon dragon;
     sf::Music music;
