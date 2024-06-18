@@ -42,4 +42,8 @@ public:
     {
     
     }
+
+    bool DetectarColision(){
+        return true;
+    }
 };

@@ -1,9 +1,6 @@
-#pragma once
-#include <Objeto.hpp>
-
-class Door : public Objeto
+class Door : public GameObject
 {
 public:
     Door(const sf::Texture &texture, const sf::Vector2f &position)
-        : objetoJuego(texture, position) {}
+        : GameObject(texture, position) {}
 };

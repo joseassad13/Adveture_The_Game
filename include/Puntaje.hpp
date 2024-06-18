@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-class Puntaje
+cclass Scoreboard
 {
 public:
     sf::Font font;
@@ -12,11 +12,11 @@ public:
     int score;
     sf::Clock gameClock;
 
-    Puntaje()
+    Scoreboard()
     {
         if (!font.loadFromFile("assets/Font/adventure-atari-2600.ttf"))
         {
-            // Handle error
+            Handle error
         }
 
         score = 0;
