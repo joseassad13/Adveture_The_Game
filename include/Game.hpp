@@ -114,7 +114,7 @@ public:
         {
             if (!gameStarted)
             {
-                enemy->setPosition( sf::Vector2f (340.f, 200.f));
+                enemy->setPosition( sf::Vector2f (410.f, 230.f));
                 handleStartScreenEvents();
             }
             else
