@@ -5,7 +5,7 @@
 class Sword : public sf::Sprite
 {
 private:
-    int daño;
+    int danio;
     bool collected;
 
     sf::Texture texture;

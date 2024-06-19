@@ -2,79 +2,134 @@
 
 class Game
 {
-    Jugar()
-    -tiempoJugado
+    Game()
+    ~Game()
+    run()
+    handleStartScreenEvents()
+    handleGameEvents()
+    transitioningMusic()
+    update()
+    render()
+    resetGame()
+    gameOver()
+    gameCompleted()
+    handleGameCompleted()
+    -Puntaje
+    -GameObject
+    -Laberinto
+    -Player
+    -Enemy
+    -Door
+    -Key
+
 }
 class Enemy
 {
-    Atacar()
-    Perseguir()
-    -daño
+    -x
+    -y
+    -speed
+    -alive
+    -Filas
+    -Columnas
+    -laberinto[][]
+    Enemy()
+    esMovimientoValido()
+    updateAnimation()
+    updateMovement()
+    checkRespawn()
+    kill()
    
 }
 class Player
 {
-    Controlar()
-    -puntaje
-    -intento
+    -x
+    -y
+    -moveSpeed
+    -hasSword
+    -hasKey
+    -Filas
+    -Columnas
+    -laberinto[][]
+    Player()
+    moverPersonaje()
+    esMovimientoValido()
+    update()
 }
-class Puntaje{
+class Puntaje
+{
+    -cantidadVidas
+    -score
     Puntaje()
     updateText()
     addScore()
     draw()
+    restarVidas()
 }
-class GameObject{
-    -color
-    -tamaño
+class GameObject
+{
+    GameObject()
+    setPosition()
+    getPosition()
 }
 
 class Key
 {
-    Acceder()
+    Key()
+    respawn()
    
 }
 class Sword
 {
     Atacar()
-    -daño
+    -danio
+    -collected
+    -texture
+    -sprite
+    -position
+    Sword()
+    ~Sword()
+    isCollected()
+    collect()
+    drop()
+    updatePosition()
+    getDistanceTo()
+    move()
 }
 
 class Door 
 {
-    DejarPasar()
-    -tamaño 
-    -textura
+    -simbolo
+    -sprite
+    Door()
 }
+
 class Sala
 {
-    -paredes
-    -tamaño
-    -puertas
-    -suelo
-    -items
+    generarSala()
 }
+
 class Laberinto
 {
-    -cantidadSalas
+    mapa1
+    texturaBloques
+    generarBloque()
+    Laberinto()
+    ~Laberinto()
+    checkCollision()
 }
 
 
+Key -|> GameObject
+Sword -|> GameObject
+
+Player "1" o-- "1,2" GameObject
+
 Game "1" *-- "1" Player
-
-Key -|> Objeto
-Sword -|> Objeto
-
-Player "1" o-- "1" Objeto
-
 Game "1" *-- "1"Laberinto
+Game "1" *-- "1"Enemy
 Game "1" *-- "1" Puntaje
-Laberinto "1" *-- "*"Sala
+Sala "1" *-- "1"Laberinto
 Player "1" o--"1"Sala
 Sala "1" *-- "1" Door 
-Sala "1" *-- "*" Pared
-
-Player -|> Entidad
-Enemy -|> Entidad
 
 @enduml
