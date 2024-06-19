@@ -5,21 +5,18 @@ class Game
     Jugar()
     -tiempoJugado
 }
+class Enemy
+{
+    Atacar()
+    Perseguir()
+    -daño
+   
+}
 class Player
 {
     Controlar()
     -puntaje
     -intento
-}
-
-class Objeto{
-    -color
-    -tamaño
-}
-class Key
-{
-    Acceder()
-   
 }
 class Puntaje{
     Puntaje()
@@ -27,12 +24,28 @@ class Puntaje{
     addScore()
     draw()
 }
-class Lanza 
+class GameObject{
+    -color
+    -tamaño
+}
+
+class Key
+{
+    Acceder()
+   
+}
+class Sword
 {
     Atacar()
     -daño
 }
 
+class Door 
+{
+    DejarPasar()
+    -tamaño 
+    -textura
+}
 class Sala
 {
     -paredes
@@ -41,42 +54,16 @@ class Sala
     -suelo
     -items
 }
-class Door 
-{
-    DejarPasar()
-    -tamaño 
-    -textura
-}
 class Laberinto
 {
     -cantidadSalas
 }
-class Pared
-{
-    -textura
-    -tamaño
-}
 
-class Enemy
-{
-    Atacar()
-    Perseguir()
-    -daño
-   
-}
 
-class Entidad{
-    -tamaño
-    -textura
-    -vida
-    -velocidad
-
-}
-
-Game *-- "1" Player
+Game "1" *-- "1" Player
 
 Key -|> Objeto
-Lanza -|> Objeto
+Sword -|> Objeto
 
 Player "1" o-- "1" Objeto
 
