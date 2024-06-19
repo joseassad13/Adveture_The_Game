@@ -362,12 +362,13 @@ public:
 
     void handleGameCompleted()
     {
-        if (gameCompletedClock.getElapsedTime().asSeconds() > 7.f)
+        if (gameCompletedClock.getElapsedTime().asSeconds() > 5.f)
         {
             gameCompletedState = false;
-            music.stop();
-            music.play();
+            // music.stop();
+            // music.play();
             resetGame();
+            enemy->setPosition(sf::Vector2f(410.f, 230.f));
         }
         else
         {
