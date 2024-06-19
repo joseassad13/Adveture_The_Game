@@ -13,6 +13,8 @@ public:
     bool hasSword;
     bool hasKey;
     sf::Vector2f swordOffset;
+    sf::Clock clock;   // Reloj para medir el tiempo
+    sf::Time delay;    // Tiempo de espera entre movimientos
 
     static const int FILAS = 20;
     static const int COLUMNAS = 20;
@@ -20,32 +22,39 @@ public:
     char laberinto[FILAS][COLUMNAS];
 
     Player(const sf::Texture &texture, const sf::Vector2f &position, float speed)
-        : GameObject(texture, position), moveSpeed(speed), hasSword(false), hasKey(false), swordOffset(0.03f, 0.f), x(position.x / 32), y(position.y / 32)
+        : GameObject(texture, position), moveSpeed(speed), hasSword(false), hasKey(false), swordOffset(0.03f, 0.f)
     {
+        x = static_cast<int>(position.y / 32);
+        y = static_cast<int>(position.x / 32);
+
         // Inicialización del laberinto
         char tempLaberinto[FILAS][COLUMNAS] =
             {
-                {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
+                {'1', '2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
                 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-                {'1', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '1'},
-                {'1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1', '0', '1', '0', '0', '1'},
-                {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '1', '1', '1', '0', '0', '1'},
-                {'1', '0', '0', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '0', '1'},
-                {'1', '0', '0', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '1', '1', '1', '0', '1'},
-                {'1', '0', '0', '0', '1', '0', '1', '0', '0', '0', '1', '0', '1', '0', '0', '1', '0', '0', '0', '1'},
-                {'1', '0', '1', '1', '1', '1', '1', '1', '1', '0', '1', '1', '1', '0', '0', '0', '0', '0', '0', '1'},
-                {'1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0', '1'},
-                {'1', '0', '1', '0', '0', '0', '0', '0', '1', '1', '1', '1', '1', '1', '1', '0', '1', '0', '0', '1'},
-                {'1', '0', '1', '0', '1', '0', '0', '0', '1', '0', '1', '0', '1', '0', '1', '0', '0', '0', '0', '1'},
-                {'1', '0', '0', '1', '1', '1', '1', '1', '1', '0', '1', '1', '1', '0', '0', '1', '0', '0', '0', '1'},
-                {'1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0', '1'},
-                {'1', '0', '1', '1', '1', '1', '1', '1', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1'},
-                {'1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0', '0', '1', '0', '0', '1'},
-                {'1', '0', '0', '0', '0', '1', '1', '1', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '0', '1'},
-                {'1', '0', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '1'},
+                {'1', '0', '0', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '1', '1', '0', '1'},
+                {'1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0', '1'},
+                {'1', '0', '1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '0', '1'},
+                {'1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+                {'1', '0', '0', '0', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '1', '1', '0', '0', '1'},
+                {'1', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '1', '0', '1', '0', '0', '1'},
+                {'1', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '1'},
+                {'1', '0', '0', '0', '0', '0', '1', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0', '0', '0', '1'},
+                {'1', '0', '0', '0', '1', '1', '1', '0', '1', '1', '1', '1', '0', '1', '1', '0', '0', '0', '0', '1'},
+                {'1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+                {'1', '0', '1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+                {'1', '0', '1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1'},
+                {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', '1'},
+                {'1', '0', '1', '0', '0', '0', '1', '0', '1', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
+                {'1', '0', '1', '0', '0', '0', '1', '1', '1', '1', '1', '1', '1', '0', '0', '0', '1', '1', '0', '1'},
+                {'1', '0', '1', '0', '0', '0', '1', '0', '0', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0', '1'},
                 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-                {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
+                {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}
+            };
+
         std::copy(&tempLaberinto[0][0], &tempLaberinto[0][0] + FILAS * COLUMNAS, &laberinto[0][0]);
+
+        delay = sf::seconds(0.2f);  // Establecer tiempo de espera entre movimientos
     }
 
     void moverPersonaje(sf::Keyboard::Key direccion)
@@ -53,16 +62,21 @@ public:
         int nuevaX = x;
         int nuevaY = y;
 
-        if (direccion == sf::Keyboard::Left) nuevaY -= 1;
-        else if (direccion == sf::Keyboard::Right) nuevaY += 1;
-        else if (direccion == sf::Keyboard::Up) nuevaX -= 1;
-        else if (direccion == sf::Keyboard::Down) nuevaX += 1;
+        if (direccion == sf::Keyboard::Left)
+            nuevaY -= 1;
+        else if (direccion == sf::Keyboard::Right)
+            nuevaY += 1;
+        else if (direccion == sf::Keyboard::Up)
+            nuevaX -= 1;
+        else if (direccion == sf::Keyboard::Down)
+            nuevaX += 1;
 
         if (esMovimientoValido(nuevaX, nuevaY))
         {
             x = nuevaX;
             y = nuevaY;
-            sprite.setPosition(y * 32, x * 32);  // Ajuste de posición
+            sprite.setPosition(y * 32, x * 32); // Ajuste de posición
+            clock.restart(); // Reiniciar el reloj después de moverse
         }
         else
         {
@@ -85,75 +99,27 @@ public:
 
     void update()
     {
-        bool moved = false;
+        if (clock.getElapsedTime() < delay)
+        {
+            return; // Si no ha pasado suficiente tiempo, no hacer nada
+        }
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && esMovimientoValido(x, y - 1))
         {
             moverPersonaje(sf::Keyboard::Left);
-            moved = true;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && esMovimientoValido(x, y + 1))
         {
             moverPersonaje(sf::Keyboard::Right);
-            moved = true;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && esMovimientoValido(x - 1, y))
         {
             moverPersonaje(sf::Keyboard::Up);
-            moved = true;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && esMovimientoValido(x + 1, y))
         {
             moverPersonaje(sf::Keyboard::Down);
-            moved = true;
         }
     }
 };
 
-
-
-// #pragma once
-// #include <SFML/Graphics.hpp>
-// #include <GameObject.hpp>
-
-// class Player : public GameObject
-// {
-// public:
-//     float moveSpeed;
-//     bool hasSword;
-//     bool hasKey;
-//     sf::Vector2f swordOffset;
-
-//     Player(const sf::Texture &texture, const sf::Vector2f &position, float speed)
-//         : GameObject(texture, position), moveSpeed(speed), hasSword(false), hasKey(false), swordOffset(50.f, 0.f) {}
-
-//     void update()
-//     {
-//         bool moved = false;
-        
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sprite.getPosition().x >= 1)
-//         {
-//             sprite.move(-moveSpeed, 0.f);
-//             moved = true;
-//         }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !moved && sprite.getPosition().x < 640 - sprite.getTexture()->getSize().x)
-//         {
-//             sprite.move(moveSpeed, 0.f);
-//             moved = true;
-//         }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !moved && sprite.getPosition().y >= 1)
-//         {
-//             sprite.move(0.f, -moveSpeed);
-//             moved = true;
-//         }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !moved && sprite.getPosition().y < 640 - sprite.getTexture()->getSize().y)
-//         {
-//             sprite.move(0.f, moveSpeed);
-//             moved = true;
-//         }
-//     }
-
-//     sf::FloatRect getBoundingBox() const
-//     {
-//         return sprite.getGlobalBounds();
-//     }
-// };
