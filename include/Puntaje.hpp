@@ -21,12 +21,12 @@ public:
         scoreText.setFont(font);
         scoreText.setCharacterSize(24);
         scoreText.setFillColor(sf::Color::White);
-        scoreText.setPosition(10.f, 10.f);
+        scoreText.setPosition(650.f, 10.f);
 
         timeText.setFont(font);
         timeText.setCharacterSize(24);
         timeText.setFillColor(sf::Color::White);
-        timeText.setPosition(10.f, 40.f);
+        timeText.setPosition(650.f, 40.f);
 
         updateText();
     }
