@@ -49,7 +49,7 @@ public:
     float musicVolume;
     bool transitioningMusic;
 
-    Game() : window(sf::VideoMode(800, 640), "Enemy Chase Player"),
+    Game() : window(sf::VideoMode(900, 640), "Enemy Chase Player"),
              spacePressedLastFrame(false),
              currentFrame(0),
              laberinto("assets/Salas/laberinto1.txt"),
@@ -86,14 +86,14 @@ public:
         key = new Key(keyTexture, sf::Vector2f(550.f, 100.f));
         puntaje = new Puntaje();
 
-        gameName = sf::Text("ADVENTURE_2.0", font, 40);
-        startGame = sf::Text("Start Game", font, 20);
-        exitGame = sf::Text("Exit Game", font, 20);
+        gameName = sf::Text("ADVENTURE_2.0", font, 60);
+        startGame = sf::Text("--Start Game--", font, 30);
+        exitGame = sf::Text("--Exit Game--", font, 30);
 
-        gameName.setPosition(90.f, 100.f);
+        gameName.setPosition(120.f, 100.f);
         gameName.setFillColor(sf::Color::Yellow);
-        startGame.setPosition(230.f, 350.f);
-        exitGame.setPosition(240.f, 400.f);
+        startGame.setPosition(250.f, 350.f);
+        exitGame.setPosition(265.f, 430.f);
 
         music.setLoop(true);
         music.play();
