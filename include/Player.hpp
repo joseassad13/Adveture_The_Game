@@ -13,8 +13,8 @@ public:
     bool hasSword;
     bool hasKey;
     sf::Vector2f swordOffset;
-    sf::Clock clock;   // Reloj para medir el tiempo
-    sf::Time delay;    // Tiempo de espera entre movimientos
+    sf::Clock clock; // Reloj para medir el tiempo
+    sf::Time delay;  // Tiempo de espera entre movimientos
 
     static const int FILAS = 20;
     static const int COLUMNAS = 20;
@@ -49,12 +49,11 @@ public:
                 {'1', '0', '1', '0', '0', '0', '1', '1', '1', '1', '1', '1', '1', '0', '0', '0', '1', '1', '0', '1'},
                 {'1', '0', '1', '0', '0', '0', '1', '0', '0', '0', '1', '0', '1', '0', '0', '0', '1', '0', '0', '1'},
                 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
-                {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}
-            };
+                {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
 
         std::copy(&tempLaberinto[0][0], &tempLaberinto[0][0] + FILAS * COLUMNAS, &laberinto[0][0]);
 
-        delay = sf::seconds(0.2f);  // Establecer tiempo de espera entre movimientos
+        delay = sf::seconds(0.2f); // Establecer tiempo de espera entre movimientos
     }
 
     void moverPersonaje(sf::Keyboard::Key direccion)
@@ -76,7 +75,7 @@ public:
             x = nuevaX;
             y = nuevaY;
             sprite.setPosition(y * 32, x * 32); // Ajuste de posición
-            clock.restart(); // Reiniciar el reloj después de moverse
+            clock.restart();                    // Reiniciar el reloj después de moverse
         }
         else
         {
@@ -122,4 +121,3 @@ public:
         }
     }
 };
-

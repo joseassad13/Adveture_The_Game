@@ -6,7 +6,6 @@
 #include <Sala.hpp>
 #include <Laberinto.hpp>
 
-
 using namespace std;
 
 //------------------------------------------generador de mapas--------------------------------------------------//
@@ -17,7 +16,6 @@ int main()
     float windowWidth = 640;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Lector laberinto");
 
-    
     //---------------------------------abrir pestaña mapa-----------------------------------------------------------//
     while (window.isOpen())
     {

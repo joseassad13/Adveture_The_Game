@@ -34,7 +34,7 @@ public:
         {
             // Calcular la dirección hacia el objetivo
             sf::Vector2f direction = targetPosition - sprite.getPosition();
-            
+
             // Normalizar la dirección para moverse solo en una dimensión a la vez
             if (std::abs(direction.x) > std::abs(direction.y))
             {
@@ -74,4 +74,3 @@ public:
         return sprite.getGlobalBounds();
     }
 };
-

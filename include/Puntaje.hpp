@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 #include <SFML/Graphics.hpp>
 
 class Puntaje
@@ -16,7 +16,7 @@ public:
     {
         if (!font.loadFromFile("assets/Font/adventure-atari-2600.ttf"))
         {
-        //    handle error
+            //    handle error
         }
 
         cantidadVidas = 5;
