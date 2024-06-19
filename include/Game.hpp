@@ -220,6 +220,7 @@ public:
         }
 
         player->update();
+        enemy->checkRespawn();
         enemy->updateMovement(player->getPosition());
         enemy->updateAnimation(4, 64, 64, animationClock, currentFrame);
 
