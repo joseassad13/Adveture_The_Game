@@ -132,4 +132,8 @@ Sala "1" *-- "1"Laberinto
 Player "1" o--"1"Sala
 Sala "1" *-- "1" Door 
 
+Player "1" o-- "1" Sword
+Player "1" o-- "1" Key
+
+
 @enduml
