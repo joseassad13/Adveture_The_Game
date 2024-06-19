@@ -79,8 +79,8 @@ public:
         // Cambiar el marco de animación cada 0.15 segundos
         if (animationClock.getElapsedTime().asSeconds() > 0.20f)
         {
-            currentFrame = (currentFrame + 1) % frameCount;
-            sprite.setTextureRect(sf::IntRect(currentFrame * frameWidth, 0, frameWidth, frameHeight));
+            currentFrame = (currentFrame + 1) % 2;
+            sprite.setTextureRect(sf::IntRect(currentFrame * 69, 0, 69, 189));
             animationClock.restart();
         }
     }

@@ -243,7 +243,7 @@ public:
             {
                 int danio = 1;
                 puntaje->restarVidas(danio);
-                enemy->setPosition(sf::Vector2f(50.f, 100.f));
+                enemy->setPosition(sf::Vector2f(50.f, 200.f));
             }
         }
 
@@ -336,7 +336,7 @@ public:
         delete puntaje;
 
         player = new Player(playerTexture, sf::Vector2f(400.f, 300.f), 0.1f);
-        enemy = new Enemy(enemyTexture, sf::Vector2f(50.f, 100.f), 0.05f);
+        enemy = new Enemy(enemyTexture, sf::Vector2f(50.f, 200.f), 0.05f);
         sword = new GameObject(swordTexture, sf::Vector2f(255.f, 150.f));
         door = new Door(doorTexture, sf::Vector2f(600.f, 500.f));
         key = new Key(keyTexture, sf::Vector2f(550.f, 100.f));
