@@ -229,7 +229,7 @@ public:
 
             float distanceToEnemy = std::sqrt(std::pow(player->getPosition().x - enemy->getPosition().x, 2) +
                                               std::pow(player->getPosition().y - enemy->getPosition().y, 2));
-            if (distanceToEnemy < 50.f)
+            if (distanceToEnemy < 5.f)
             {
                 enemy->kill();
             }
@@ -265,7 +265,7 @@ public:
             {
                 player->hasKey = false;
                 key->respawn();
-                puntaje->addScore(100);
+                puntaje->addScore(10);
             }
         }
 
