@@ -9,7 +9,10 @@
 class Laberinto
 {
 private:
-    std::list<std::list<sf::Sprite>> mapa1;
+   
+
+public:
+ std::list<std::list<sf::Sprite>> mapa1;
     sf::Texture texturaBloques;
 
     sf::Sprite generarBloque(int tipo)
@@ -47,8 +50,6 @@ private:
 
         return bloque;
     }
-
-public:
     Laberinto(const std::string &filename = "./assets/salas/laberinto1.txt")
     {
         std::ifstream inputFile(filename);
