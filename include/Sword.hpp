@@ -11,6 +11,7 @@ private:
     sf::Texture texture;
 
 public:
+    sf::Sprite sprite;
     sf::Vector2f position;
     Sword(const sf::Texture &texture, const sf::Vector2f &initialPosition)
         : texture(texture), collected(false)
@@ -48,5 +49,9 @@ public:
     {
         return std::sqrt(std::pow(getPosition().x - otherPosition.x, 2) +
                          std::pow(getPosition().y - otherPosition.y, 2));
+    }
+    void move(const sf::Vector2f &offset)
+    {
+        sprite.move(offset);
     }
 };
