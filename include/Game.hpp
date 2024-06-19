@@ -48,13 +48,19 @@ public:
     float musicVolume;
     bool transitioningMusic;
 
+    // Variables para el estado de "Victoria"
+    bool gameCompletedState;
+    sf::Text victoriaText;
+    sf::Clock gameCompletedClock;
+
     Game() : window(sf::VideoMode(900, 640), "Enemy Chase Player"),
              spacePressedLastFrame(false),
              currentFrame(0),
              laberinto("assets/Salas/laberinto1.txt"),
              gameStarted(false),
              musicVolume(100.f),
-             transitioningMusic(false)
+             transitioningMusic(false),
+             gameCompletedState(false)
     {
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
@@ -95,6 +101,12 @@ public:
 
         music.setLoop(true);
         music.play();
+
+        victoriaText.setFont(font);
+        victoriaText.setCharacterSize(100);
+        victoriaText.setFillColor(sf::Color::Yellow);
+        victoriaText.setPosition(110.f, 200.f);
+        victoriaText.setString("Victoria");
     }
 
     ~Game()
@@ -111,7 +123,11 @@ public:
     {
         while (window.isOpen())
         {
-            if (!gameStarted)
+            if (gameCompletedState)
+            {
+                handleGameCompleted();
+            }
+            else if (!gameStarted)
             {
                 handleStartScreenEvents();
             }
@@ -249,7 +265,7 @@ public:
             {
                 player->hasKey = false;
                 key->respawn();
-                puntaje->addScore(10);
+                puntaje->addScore(100);
             }
         }
 
@@ -276,6 +292,11 @@ public:
         {
             gameOver();
         }
+        if (puntaje->score >= 100)
+        {
+            gameCompleted();
+        }
+
         spacePressedLastFrame = spacePressedThisFrame;
 
         puntaje->updateText();
@@ -328,5 +349,31 @@ public:
         music.play();
         resetGame();
         enemy->setPosition(sf::Vector2f(410.f, 230.f));
+    }
+
+    void gameCompleted()
+    {
+        gameStarted = false;
+        gameMusic.stop();
+        music.play();
+        gameCompletedState = true;
+        gameCompletedClock.restart();
+    }
+
+    void handleGameCompleted()
+    {
+        if (gameCompletedClock.getElapsedTime().asSeconds() > 7.f)
+        {
+            gameCompletedState = false;
+            music.stop();
+            music.play();
+            resetGame();
+        }
+        else
+        {
+            window.clear();
+            window.draw(victoriaText);
+            window.display();
+        }
     }
 };
