@@ -286,8 +286,6 @@ public:
         puntaje->draw(window);
         window.display();
     }
-<<<<<<< HEAD
-=======
 
     void resetGame()
     {
@@ -341,7 +339,6 @@ public:
             window.display();
         }
     }
->>>>>>> d2e35244d023c1f937bf1bc66e5906951c850655
 };
 // #pragma once
 // #include <SFML/Graphics.hpp>
