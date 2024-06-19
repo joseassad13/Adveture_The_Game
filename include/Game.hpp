@@ -18,6 +18,9 @@
 class Game
 {
 public:
+    const int TILE_SIZE = 32;
+    const int FILAS = 20;
+    const int COLUMNAS = 20;
     sf::RenderWindow window;
     sf::Texture playerTexture;
     sf::Texture enemyTexture;
@@ -75,7 +78,7 @@ public:
         }
 
         srand(static_cast<unsigned>(time(0)));
-
+        Player personaje(playerTexture, sf::Vector2f(1 * TILE_SIZE, 1 * TILE_SIZE), 0.1f);
         player = new Player(playerTexture, sf::Vector2f(400.f, 300.f), 0.1f);
         enemy = new Enemy(enemyTexture, sf::Vector2f(50.f, 100.f), 0.05f);
         sword = new GameObject(swordTexture, sf::Vector2f(255.f, 150.f));
@@ -272,6 +275,7 @@ public:
     {
         window.clear();
         laberinto.Draw(window);
+        
 
         window.draw(player->sprite);
         if (!player->hasSword)
