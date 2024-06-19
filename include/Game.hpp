@@ -6,14 +6,13 @@
 #include <cstdlib>
 #include <ctime>
 #include <list>
-#include "Laberinto.hpp"
-#include "Player.hpp"
-#include "Enemy.hpp"
-#include "Door.hpp"
-#include "Key.hpp"
-#include "Sword.hpp"
-#include "Puntaje.hpp"
-#include "GameObject.hpp"
+#include <Laberinto.hpp>
+#include <Player.hpp>
+#include <Enemy.hpp>
+#include <Door.hpp>
+#include <Key.hpp>
+#include <Puntaje.hpp>
+#include <GameObject.hpp>
 
 class Game
 {
@@ -29,7 +28,7 @@ public:
     sf::Texture keyTexture;
     Player *player;
     Enemy *enemy;
-    Sword *sword;
+    GameObject *sword;
     Door *door;
     Key *key;
     Puntaje *puntaje;
@@ -37,7 +36,7 @@ public:
     bool spacePressedLastFrame;
     int currentFrame;
     sf::Clock animationClock;
-    bool gameStarted; // Variable para controlar si el juego ha comenzado
+    bool gameStarted;
 
     // Variables para la pantalla de inicio
     sf::Font font;
@@ -49,13 +48,19 @@ public:
     float musicVolume;
     bool transitioningMusic;
 
+    // Variables para el estado de "Victoria"
+    bool gameCompletedState;
+    sf::Text victoriaText;
+    sf::Clock gameCompletedClock;
+
     Game() : window(sf::VideoMode(900, 640), "Enemy Chase Player"),
              spacePressedLastFrame(false),
              currentFrame(0),
              laberinto("assets/Salas/laberinto1.txt"),
              gameStarted(false),
              musicVolume(100.f),
-             transitioningMusic(false)
+             transitioningMusic(false),
+             gameCompletedState(false)
     {
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
@@ -78,9 +83,9 @@ public:
         }
 
         srand(static_cast<unsigned>(time(0)));
-        player = new Player(playerTexture, sf::Vector2f(400.f, 300.f), 0.0001f);
-        enemy = new Enemy(enemyTexture, sf::Vector2f(50.f, 100.f), 0.05f);
-        sword = new Sword(swordTexture, sf::Vector2f(255.f, 150.f));
+        player = new Player(playerTexture, sf::Vector2f(400.f, 300.f), 0.1f);
+        enemy = new Enemy(enemyTexture, sf::Vector2f(410.f, 230.f), 0.05f);  // Inicializa la posición del enemigo en la pantalla de inicio
+        sword = new GameObject(swordTexture, sf::Vector2f(255.f, 150.f));
         door = new Door(doorTexture, sf::Vector2f(600.f, 500.f));
         key = new Key(keyTexture, sf::Vector2f(550.f, 100.f));
         puntaje = new Puntaje();
@@ -96,6 +101,12 @@ public:
 
         music.setLoop(true);
         music.play();
+
+        victoriaText.setFont(font);
+        victoriaText.setCharacterSize(100);
+        victoriaText.setFillColor(sf::Color::Yellow);
+        victoriaText.setPosition(110.f, 200.f);
+        victoriaText.setString("Victoria");
     }
 
     ~Game()
@@ -112,9 +123,12 @@ public:
     {
         while (window.isOpen())
         {
-            if (!gameStarted)
+            if (gameCompletedState)
             {
-                enemy->setPosition(sf::Vector2f(410.f, 230.f));
+                handleGameCompleted();
+            }
+            else if (!gameStarted)
+            {
                 handleStartScreenEvents();
             }
             else
@@ -146,9 +160,11 @@ public:
                 sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 if (startGame.getGlobalBounds().contains(mousePos))
                 {
-                    enemy->setPosition(sf::Vector2f(100.f, 50.f));
                     transitioningMusic = true;
+                    music.stop();
+                    gameMusic.play();
                     gameStarted = true;
+                    resetGame();
                 }
                 else if (exitGame.getGlobalBounds().contains(mousePos))
                 {
@@ -162,6 +178,8 @@ public:
         sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         startGame.setFillColor(startGame.getGlobalBounds().contains(mousePos) ? sf::Color::Red : sf::Color::White);
         exitGame.setFillColor(exitGame.getGlobalBounds().contains(mousePos) ? sf::Color::Red : sf::Color::White);
+
+        // Actualizar animación del enemigo en la pantalla de inicio
         enemy->updateAnimation(4, 64, 64, animationClock, currentFrame);
 
         window.clear();
@@ -177,7 +195,6 @@ public:
         music.stop();
         gameMusic.setLoop(true);
         gameMusic.play();
-        gameStarted = true;
         transitioningMusic = false;
     }
 
@@ -208,12 +225,24 @@ public:
 
         if (player->hasSword)
         {
-            sword->updatePosition(player->getPosition(), player->swordOffset);
+            sword->setPosition(player->getPosition() + player->swordOffset);
 
-            float distanceToEnemy = sword->getDistanceTo(enemy->getPosition());
+            float distanceToEnemy = std::sqrt(std::pow(player->getPosition().x - enemy->getPosition().x, 2) +
+                                              std::pow(player->getPosition().y - enemy->getPosition().y, 2));
             if (distanceToEnemy < 50.f)
             {
                 enemy->kill();
+            }
+        }
+        else
+        {
+            float distanceToEnemy = std::sqrt(std::pow(player->getPosition().x - enemy->getPosition().x, 2) +
+                                              std::pow(player->getPosition().y - enemy->getPosition().y, 2));
+            if (distanceToEnemy < 0.5f)
+            {
+                int danio = 1;
+                puntaje->restarVidas(danio);
+                enemy->setPosition(sf::Vector2f(50.f, 100.f));
             }
         }
 
@@ -236,7 +265,7 @@ public:
             {
                 player->hasKey = false;
                 key->respawn();
-                puntaje->addScore(10);
+                puntaje->addScore(100);
             }
         }
 
@@ -245,20 +274,29 @@ public:
         {
             if (!player->hasSword)
             {
-                float distanceToSword = sword->getDistanceTo(player->getPosition());
+                float distanceToSword = std::sqrt(std::pow(player->getPosition().x - sword->getPosition().x, 2) +
+                                                  std::pow(player->getPosition().y - sword->getPosition().y, 2));
                 if (distanceToSword < 50.f)
                 {
                     player->hasSword = true;
-                    sword->updatePosition(player->getPosition(), player->swordOffset);
-                    sword->collect();
+                    sword->setPosition(player->getPosition() + player->swordOffset);
                 }
             }
             else
             {
                 player->hasSword = false;
-                sword->drop(player->getPosition());
+                sword->setPosition(player->getPosition());
             }
         }
+        if (puntaje->cantidadVidas <= 0)
+        {
+            gameOver();
+        }
+        if (puntaje->score >= 100)
+        {
+            gameCompleted();
+        }
+
         spacePressedLastFrame = spacePressedThisFrame;
 
         puntaje->updateText();
@@ -272,7 +310,7 @@ public:
         window.draw(player->sprite);
         if (!player->hasSword)
         {
-            window.draw(*sword);
+            window.draw(sword->sprite);
         }
         if (enemy->alive)
         {
@@ -286,8 +324,6 @@ public:
         puntaje->draw(window);
         window.display();
     }
-<<<<<<< HEAD
-=======
 
     void resetGame()
     {
@@ -341,8 +377,8 @@ public:
             window.display();
         }
     }
->>>>>>> d2e35244d023c1f937bf1bc66e5906951c850655
 };
+
 // #pragma once
 // #include <SFML/Graphics.hpp>
 // #include <SFML/Audio.hpp>
