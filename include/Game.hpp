@@ -1,5 +1,4 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <cmath>
@@ -115,6 +114,7 @@ public:
         {
             if (!gameStarted)
             {
+                enemy->setPosition( sf::Vector2f (340.f, 200.f));
                 handleStartScreenEvents();
             }
             else
@@ -142,10 +142,12 @@ public:
             }
 
             if (event.type == sf::Event::MouseButtonPressed)
-            {
+            {   
+                
                 sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 if (startGame.getGlobalBounds().contains(mousePos))
                 {
+                    enemy->setPosition( sf::Vector2f (100.f, 50.f));
                     transitioningMusic = true;
                     gameStarted = true;
 
@@ -162,8 +164,11 @@ public:
         sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
         startGame.setFillColor(startGame.getGlobalBounds().contains(mousePos) ? sf::Color::Red : sf::Color::White);
         exitGame.setFillColor(exitGame.getGlobalBounds().contains(mousePos) ? sf::Color::Red : sf::Color::White);
+        enemy->updateAnimation(4, 64, 64, animationClock, currentFrame);
+        
 
         window.clear();
+        window.draw(enemy->sprite);
         window.draw(gameName);
         window.draw(startGame);
         window.draw(exitGame);
@@ -197,6 +202,7 @@ public:
         // Actualizaciones del juego solo cuando el juego ha comenzado
         if (!gameStarted)
         {
+            
             return;
         }
 
