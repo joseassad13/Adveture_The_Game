@@ -139,8 +139,4 @@ public:
     {
         return sprite.getGlobalBounds();
     }
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> d2571e51269885df6522dd6c5357a33652e6f6db
