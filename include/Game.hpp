@@ -84,7 +84,7 @@ public:
 
         srand(static_cast<unsigned>(time(0)));
         player = new Player(playerTexture, sf::Vector2f(400.f, 300.f), 0.1f);
-        enemy = new Enemy(enemyTexture, sf::Vector2f(410.f, 230.f), 0.05f);  // Inicializa la posición del enemigo en la pantalla de inicio
+        enemy = new Enemy(enemyTexture, sf::Vector2f(410.f, 230.f), 0.05f); // Inicializa la posición del enemigo en la pantalla de inicio
         sword = new GameObject(swordTexture, sf::Vector2f(255.f, 150.f));
         door = new Door(doorTexture, sf::Vector2f(600.f, 500.f));
         key = new Key(keyTexture, sf::Vector2f(550.f, 100.f));

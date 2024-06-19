@@ -103,8 +103,7 @@ int main()
 
             window.draw(player);
             window.draw(enemy);
-            
-        }
+                }
         window.display();
     }
 

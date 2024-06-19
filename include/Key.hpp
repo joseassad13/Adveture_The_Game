@@ -1,8 +1,6 @@
-#pragma once 
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <GameObject.hpp>
-
-
 
 class Key : public GameObject
 {

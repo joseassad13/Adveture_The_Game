@@ -9,10 +9,8 @@
 class Laberinto
 {
 private:
-   
-
 public:
- std::list<std::list<sf::Sprite>> mapa1;
+    std::list<std::list<sf::Sprite>> mapa1;
     sf::Texture texturaBloques;
 
     sf::Sprite generarBloque(int tipo)
@@ -130,5 +128,3 @@ public:
         return false;
     }
 };
-
-
