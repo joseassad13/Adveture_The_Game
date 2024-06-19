@@ -60,7 +60,7 @@ public:
         if (!playerTexture.loadFromFile("assets/Images/jugador_adventure.png") ||
             !enemyTexture.loadFromFile("assets/Images/dragon_adventure_actions2.png") ||
             !swordTexture.loadFromFile("assets/Images/arma.png") ||
-            !doorTexture.loadFromFile("assets/Images/puerta_adventure.png") ||
+            !doorTexture.loadFromFile("./assets/images/textura_salas.png") ||
             !keyTexture.loadFromFile("assets/Images/lanza_adventure.png"))
         {
             // Handle error
